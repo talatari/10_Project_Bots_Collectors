@@ -209,28 +209,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 404411189}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
---- !u!1 &404411188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
-  m_PrefabInstance: {fileID: 404411187}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &404411189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404411188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a9d1bef8b5d46ca909a7dd9d135959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &426645818
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mineralSpawner: {fileID: 0}
+  _unitSpawner: {fileID: 0}
 --- !u!1 &2058907968
 GameObject:
   m_ObjectHideFlags: 0

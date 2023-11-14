@@ -15,7 +15,8 @@ public class MineralSpawner : MonoBehaviour
     {
         for (int i = 0; i < _countMinerals; i++)
         {
-            Mineral mineral = Instantiate(_mineralPrefab, _spawnPoints[Random.Range(0, _spawnPoints.Count)]);
+            Vector3 spawnPosition = _spawnPoints[Random.Range(0, _spawnPoints.Count)].position;
+            Mineral mineral = Instantiate(_mineralPrefab, spawnPosition, Quaternion.identity);
             _mineralCollection.Add(mineral);
         }
     }
