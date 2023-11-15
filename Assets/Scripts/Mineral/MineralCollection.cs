@@ -26,13 +26,18 @@ public class MineralCollection
         return null;
     }
 
-    public void Clear()
+    public void RemoveAll()
     {
         foreach (Mineral mineral in _minerals) 
-            mineral.Clear();
+            mineral.Destroy();
 
         _minerals.Clear();
     }
-    
-    
+
+    public void Remove(Mineral mineral)
+    {
+        _minerals.Remove(mineral);
+        
+        mineral.Destroy();
+    }
 }

@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: _collectorPrefab
       value: 
       objectReference: {fileID: 7336767844495426843, guid: f2a0b42636b144d7ab76090ea46dc932, type: 3}
+    - target: {fileID: 8467890224724940372, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -186,6 +190,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       insertIndex: -1
       addedObject: {fileID: 404411194}
+    - targetCorrespondingSourceObject: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 404411200}
   m_SourcePrefab: {fileID: 100100000, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
 --- !u!1 &404411188 stripped
 GameObject:
@@ -215,6 +222,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a9d1bef8b5d46ca909a7dd9d135959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &404411200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404411188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f1b35d3dce0460fb14035b9e78d360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countMinerals: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +340,7 @@ GameObject:
   - component: {fileID: 795353967}
   - component: {fileID: 795353966}
   m_Layer: 0
-  m_Name: ResourceSpawner
+  m_Name: MineralSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mineralPrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
-  _delaySpawn: 1
+  _delaySpawn: 0.3
   _distance: 45
   _count: 0
 --- !u!4 &795353967
@@ -482,6 +502,7 @@ MonoBehaviour:
   _mineralSpawner: {fileID: 795353966}
   _collectorSpawner: {fileID: 404411195}
   _mineralScanner: {fileID: 404411194}
+  _base: {fileID: 404411200}
 --- !u!1001 &8218831912824147536
 PrefabInstance:
   m_ObjectHideFlags: 0
