@@ -6,6 +6,19 @@ public class UnitCollection
 
     public void Add(Unit unit) => _units.Add(unit);
 
+    public Unit TryGetFreeUnit()
+    {
+        foreach (Unit unit in _units)
+        {
+            if (unit.IsWork == false)
+            {
+                return unit;
+            }
+        }
+
+        return null;
+    }
+    
     public void Clear()
     {
         foreach (Unit unit in _units)
