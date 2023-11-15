@@ -1,25 +1,52 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MineralSpawner : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private Mineral _mineralPrefab;
-    [SerializeField] private int _countMinerals = 3;
+    [SerializeField, Range(1, 10)] private float _delaySpawn = 2f;
+    [SerializeField] private int _distance = 45;
+    [SerializeField] private int _count;
     
     private MineralCollection _mineralCollection;
-
-    public void Initialize(MineralCollection mineralCollection) => _mineralCollection = mineralCollection;
+    private Coroutine _coroutineSpawnWithDelay;
     
-    public void Spawn()
+    public void Initialize(MineralCollection mineralCollection) => _mineralCollection = mineralCollection;
+
+    public void StartSpawn() => _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
+
+    private void OnDisable()
     {
-        for (int i = 0; i < _countMinerals; i++)
+        if (_coroutineSpawnWithDelay != null)
         {
-            Vector3 spawnPosition = _spawnPoints[Random.Range(0, _spawnPoints.Count)].position;
-            Mineral mineral = Instantiate(_mineralPrefab, spawnPosition, Quaternion.identity);
-            _mineralCollection.Add(mineral);
+            StopCoroutine(_coroutineSpawnWithDelay);
         }
     }
-    
+
+    private void Spawn()
+    {
+        Vector3 spawnPosition = new Vector3(
+            x: Random.Range(_distance * -1, _distance),
+            y: 0,
+            z: Random.Range(_distance * -1, _distance));
+
+        Mineral mineral = Instantiate(_mineralPrefab, spawnPosition, Quaternion.identity);
+
+        mineral.transform.parent = gameObject.transform;
+        
+        _mineralCollection.Add(mineral);
+        _count++;
+    }
+
+    private IEnumerator<WaitForSeconds> SpawnWithDelay()
+    {
+        while (true)
+        {
+            Spawn();
+
+            yield return new WaitForSeconds(_delaySpawn);
+        }
+    }
     
 }

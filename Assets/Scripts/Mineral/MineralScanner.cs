@@ -3,31 +3,31 @@ using UnityEngine;
 public class MineralScanner : MonoBehaviour
 {
     private MineralCollection _mineralCollection;
-    private UnitCollection _unitCollection;
+    private CollectorCollection _collectorCollection;
 
-    public void Initialize(MineralCollection mineralCollection, UnitCollection unitCollection)
+    public void Initialize(MineralCollection mineralCollection, CollectorCollection collectorCollection)
     {
         _mineralCollection = mineralCollection;
-        _unitCollection = unitCollection;
+        _collectorCollection = collectorCollection;
     }
     
     private void Scanning()
     {
-        while (_mineralCollection.Count > 0)
+        while (_mineralCollection.CountFree() > 0 && _collectorCollection.CountFree() > 0)
         {
-            Unit unit = _unitCollection.TryGetFreeUnit();
+            Collector collector = _collectorCollection.TryGetFreeUnit();
             Mineral mineral = _mineralCollection.TryGetPositionMineral();
             
-            unit?.AssignWork(mineral.transform.position);
-            mineral?.SetBusy();
+            collector.AssignWork(mineral.transform.position);
+            mineral.SetBusy();
         }
     }
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
+        if (Input.GetKeyDown(KeyCode.S)) 
             Scanning();
-        }
     }
+    
+    
 }

@@ -3,34 +3,35 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private MineralSpawner _mineralSpawner;
-    [SerializeField] private UnitSpawner _unitSpawner;
+    [SerializeField] private CollectorSpawner _collectorSpawner;
     [SerializeField] private MineralScanner _mineralScanner;
 
     private Level _level;
 
-    public void Awake()
+    private void OnValidate()
     {
         _mineralSpawner ??= FindObjectOfType<MineralSpawner>();
-        _unitSpawner ??= FindObjectOfType<UnitSpawner>();
+        _collectorSpawner ??= FindObjectOfType<CollectorSpawner>();
         _mineralScanner ??= FindObjectOfType<MineralScanner>();
-        
+    }
+
+    public void Awake()
+    {
         MineralCollection mineralCollection = new MineralCollection();
-        UnitCollection unitCollection = new UnitCollection();
+        CollectorCollection collectorCollection = new CollectorCollection();
         
         _mineralSpawner.Initialize(mineralCollection);
-        _unitSpawner.Initialize(unitCollection);
-        _mineralScanner.Initialize(mineralCollection, unitCollection);
+        _collectorSpawner.Initialize(collectorCollection);
+        _mineralScanner.Initialize(mineralCollection, collectorCollection);
         
-        _level = new Level(_mineralSpawner, mineralCollection, _unitSpawner, unitCollection);
+        _level = new Level(_mineralSpawner, mineralCollection, _collectorSpawner, collectorCollection);
         _level.Start();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
+        if (Input.GetKeyDown(KeyCode.R)) 
             _level.Restart();
-        }
     }
     
     
