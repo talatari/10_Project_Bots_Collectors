@@ -3,29 +3,29 @@ public class Level
     private MineralSpawner _mineralSpawner;
     private MineralCollection _mineralCollection;
     
-    private UnitSpawner _unitSpawner;
-    private UnitCollection _unitCollection;
+    private CollectorSpawner _collectorSpawner;
+    private CollectorCollection _collectorCollection;
 
-    public Level(MineralSpawner mineralSpawner, MineralCollection mineralCollection, 
-                 UnitSpawner unitSpawner, UnitCollection unitCollection)
+    public Level(MineralSpawner mineralSpawner, MineralCollection mineralCollection,
+        CollectorSpawner collectorSpawner, CollectorCollection collectorCollection)
     {
         _mineralSpawner = mineralSpawner;
         _mineralCollection = mineralCollection;
 
-        _unitSpawner = unitSpawner;
-        _unitCollection = unitCollection;
+        _collectorSpawner = collectorSpawner;
+        _collectorCollection = collectorCollection;
     }
 
     public void Clear()
     {
         _mineralCollection.Clear();
-        _unitCollection.Clear();
+        _collectorCollection.Clear();
     }
 
     public void Start()
     {
-        _mineralSpawner.Spawn();
-        _unitSpawner.Spawn();
+        _mineralSpawner.StartSpawn();
+        _collectorSpawner.Spawn();
     }
 
     public void Restart()

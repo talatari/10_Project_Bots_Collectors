@@ -1,33 +1,36 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class MineralCollection
 {
     private List<Mineral> _minerals = new ();
 
-    public int Count => _minerals.Count;
-    
+    public int CountFree()
+    {
+        int countFree = 0;
+
+        foreach (Mineral mineral in _minerals)
+            if (mineral.IsBusy == false)
+                countFree++;
+
+        return countFree;
+    }
+
     public void Add(Mineral mineral) => _minerals.Add(mineral);
 
     public Mineral TryGetPositionMineral()
     {
-        if (_minerals.Count > 0)
-        {
-            int randomMineralIndex = Random.Range(0, _minerals.Count);
+        foreach (Mineral mineral in _minerals)
+            if (mineral.IsBusy == false)
+                return mineral;
 
-            return _minerals[randomMineralIndex];
-        }
-        
         return null;
     }
-    
+
     public void Clear()
     {
-        foreach (Mineral mineral in _minerals)
-        {
+        foreach (Mineral mineral in _minerals) 
             mineral.Clear();
-        }
-        
+
         _minerals.Clear();
     }
     
