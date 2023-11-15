@@ -18,7 +18,7 @@ public class Level
 
     public void Clear()
     {
-        _mineralCollection.Clear();
+        _mineralCollection.RemoveAll();
         _collectorCollection.Clear();
     }
 

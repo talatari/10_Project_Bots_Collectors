@@ -29,7 +29,7 @@ public class CollectorCollection
     public void Clear()
     {
         foreach (Collector collector in _collectors) 
-            collector.Clear();
+            collector.Destroy();
 
         _collectors.Clear();
     }

@@ -18,7 +18,7 @@ public class MineralScanner : MonoBehaviour
             Collector collector = _collectorCollection.TryGetFreeUnit();
             Mineral mineral = _mineralCollection.TryGetPositionMineral();
             
-            collector.AssignWork(mineral.transform.position);
+            collector.AssignWork(mineral);
             mineral.SetBusy();
         }
     }

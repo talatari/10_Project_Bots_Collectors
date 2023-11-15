@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 public class MineralSpawner : MonoBehaviour
 {
     [SerializeField] private Mineral _mineralPrefab;
-    [SerializeField, Range(1, 10)] private float _delaySpawn = 2f;
+    [SerializeField, Range(0, 10)] private float _delaySpawn = 2f;
     [SerializeField] private int _distance = 45;
     [SerializeField] private int _count;
     

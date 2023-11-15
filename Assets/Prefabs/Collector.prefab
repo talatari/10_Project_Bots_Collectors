@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8311125017378307507}
   - component: {fileID: 3966585278173958014}
   - component: {fileID: 2821259539492490856}
+  - component: {fileID: 4193580036926949891}
   - component: {fileID: 2943546059202660433}
   - component: {fileID: 7336767844495426843}
   - component: {fileID: 6222470911528941668}
@@ -86,6 +87,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &4193580036926949891
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505896778709352500}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &2943546059202660433
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -101,7 +129,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -119,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3ddbc26a492419ba4c879254b12c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectorMovement: {fileID: 6222470911528941668}
 --- !u!114 &6222470911528941668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,3 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0e6cc0ba9674ab4a69cd61f3130ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collector: {fileID: 7336767844495426843}
+  _speedMove: 50
+  _targetMineral: {fileID: 0}
