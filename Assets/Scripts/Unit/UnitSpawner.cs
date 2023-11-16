@@ -6,9 +6,9 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField] private int _countUnit = 3;
 
     private UnitCollection _unitCollection;
-    private Base _base;
+    private Station _station;
 
-    private void OnValidate() => _base ??= GetComponent<Base>();
+    private void OnValidate() => _station ??= GetComponent<Station>();
 
     public void Initialize(UnitCollection unitCollection) => _unitCollection = unitCollection;
     
@@ -20,7 +20,7 @@ public class UnitSpawner : MonoBehaviour
             _unitCollection.Add(unit);
 
             unit.transform.parent = gameObject.transform;
-            unit.SetBasePosition(_base.transform);
+            unit.SetBasePosition(_station.transform);
         }
     }
     

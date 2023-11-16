@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_Name
-      value: Base
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 795353967}
   - component: {fileID: 795353966}
   m_Layer: 0
-  m_Name: MineralSpawner
+  m_Name: ResourceSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,7 +306,6 @@ MonoBehaviour:
   _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
   _delaySpawn: 1
   _distance: 45
-  _count: 0
 --- !u!4 &795353967
 Transform:
   m_ObjectHideFlags: 0
@@ -422,7 +421,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ee99b865ef86427698196e5384da8e1, type: 3}
   m_Name: 
