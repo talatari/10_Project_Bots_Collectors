@@ -6,7 +6,7 @@ public class Level
     private UnitSpawner _unitSpawner;
     private UnitCollection _unitCollection;
 
-    public Level(ResourceSpawner resourceSpawner, ResourceCollection resourceCollection,
+    public Level(ResourceSpawner resourceSpawner, ResourceCollection resourceCollection, 
         UnitSpawner unitSpawner, UnitCollection unitCollection)
     {
         _resourceSpawner = resourceSpawner;

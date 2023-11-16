@@ -30,8 +30,10 @@ public class Unit : MonoBehaviour
     }
 
     public void SetFree() => IsWork = false;
-
+    
     public void SetBasePosition(Transform baseTransform) => BasePosition = baseTransform;
+
+    public void ClearResource() => _resource = null;
     
     
 }

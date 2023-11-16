@@ -18,7 +18,5 @@ public class UnitMovement : MonoBehaviour
     
     public void SetTarget(Transform targetPoint) => _targetPoint = targetPoint;
 
-    public void ClearTarget() => _unit.SetFree();
-    
     
 }
