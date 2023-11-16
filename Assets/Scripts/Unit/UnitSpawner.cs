@@ -8,10 +8,12 @@ public class UnitSpawner : MonoBehaviour
     private UnitCollection _unitCollection;
     private Station _station;
 
-    private void OnValidate() => _station ??= GetComponent<Station>();
+    public void Initialize(UnitCollection unitCollection, Station station)
+    {
+        _unitCollection = unitCollection;
+        _station = station;
+    }
 
-    public void Initialize(UnitCollection unitCollection) => _unitCollection = unitCollection;
-    
     public void Spawn()
     {
         for (int i = 0; i < _countUnit; i++)
@@ -20,7 +22,7 @@ public class UnitSpawner : MonoBehaviour
             _unitCollection.Add(unit);
 
             unit.transform.parent = gameObject.transform;
-            unit.SetBasePosition(_station.transform);
+            unit.SetStationPosition(_station.transform);
         }
     }
     

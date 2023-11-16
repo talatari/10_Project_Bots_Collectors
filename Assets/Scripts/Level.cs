@@ -2,7 +2,6 @@ public class Level
 {
     private ResourceSpawner _resourceSpawner;
     private ResourceCollection _resourceCollection;
-    
     private UnitSpawner _unitSpawner;
     private UnitCollection _unitCollection;
 
@@ -11,7 +10,6 @@ public class Level
     {
         _resourceSpawner = resourceSpawner;
         _resourceCollection = resourceCollection;
-
         _unitSpawner = unitSpawner;
         _unitCollection = unitCollection;
     }

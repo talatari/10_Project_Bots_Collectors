@@ -15,10 +15,8 @@ public class Bootstrap : MonoBehaviour
         UnitCollection unitCollection = new UnitCollection();
         
         _resourceSpawner.Initialize(resourceCollection);
-        _unitSpawner.Initialize(unitCollection);
-        
+        _unitSpawner.Initialize(unitCollection, _station);
         _resourceScanner.Initialize(resourceCollection, unitCollection, _station);
-        _station.Initialize(resourceCollection);
         
         _level = new Level(_resourceSpawner, resourceCollection, _unitSpawner, unitCollection);
         _level.Start();
