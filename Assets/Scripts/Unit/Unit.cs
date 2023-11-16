@@ -1,39 +1,57 @@
 using UnityEngine;
 
+[RequireComponent(
+    typeof(UnitMovement), 
+    typeof(UnitCollector))]
+
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private UnitMovement _unitMovement;
-
-    private Resource _resource;
+    private UnitMovement _movement;
+    private UnitCollector _collector;
+    private Transform _basePosition;
     
-    public Transform BasePosition { get; private set; }
     public bool IsWork { get; private set; }
+    public UnitCollector Collector => _collector;
     
-    private void OnValidate() => _unitMovement ??= GetComponent<UnitMovement>();
-
-    private void OnTriggerEnter(Collider collider)
+    private void Awake()
     {
-        if (collider.TryGetComponent(out Resource resource))
-        {
-            _resource = resource;
-            _resource.transform.SetParent(transform);
-            _unitMovement.SetTarget(BasePosition);
-        }
+        _movement = GetComponent<UnitMovement>();
+        _collector = GetComponent<UnitCollector>();
     }
 
-    public void Destroy() => Destroy(gameObject);
+    private void OnEnable() => 
+        _collector.ResourceCollected += OnResourceCollected;
+
+    private void OnDisable() => 
+        _collector.ResourceCollected -= OnResourceCollected;
+
+    private void OnResourceCollected()
+    {
+        _movement.SetTarget(_basePosition);
+    }
+
+    public void Destroy() => 
+        Destroy(gameObject);
 
     public void AssignWork(Resource resource)
     {
-        _unitMovement.SetTarget(resource.transform);
+        _movement.SetTarget(resource.transform);
+        _collector.SetTargetResource(resource);
         IsWork = true;
     }
 
-    public void SetFree() => IsWork = false;
-    
-    public void SetBasePosition(Transform baseTransform) => BasePosition = baseTransform;
+    public void SetFree()
+    {
+        IsWork = false;
+        _collector.ClearResource();
+        
+        //TODO: event Unit Free for scanner
+    }
 
-    public void ClearResource() => _resource = null;
+    public void SetBasePosition(Transform baseTransform) => 
+        _basePosition = baseTransform;
+
+    
     
     
 }

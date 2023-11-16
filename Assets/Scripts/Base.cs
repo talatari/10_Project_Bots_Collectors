@@ -2,29 +2,22 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
-    [SerializeField] private int _countMinerals;
+    [SerializeField] private int _countResources;
 
     private ResourceCollection _resourceCollection;
-    private Unit _unit;
     
     public void Initialize(ResourceCollection resourceCollection) => _resourceCollection = resourceCollection;
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.TryGetComponent(out Unit unit)) 
-            _unit = unit;
-
-        if (collider.gameObject.TryGetComponent(out Resource resource))
+        if (collider.TryGetComponent(out Unit unit))
         {
-            _resourceCollection.Remove(resource);
+            if (unit.Collector.HasResource is false)
+                return;
             
-            _countMinerals++;
-
-            if (_unit is not null)
-            {
-                _unit.SetFree();
-                _unit.ClearResource();
-            }
+            _resourceCollection.Remove(unit.Collector.Resource);
+            _countResources++;
+            unit.SetFree();
         }
     }
     

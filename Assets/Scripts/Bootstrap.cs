@@ -9,7 +9,7 @@ public class Bootstrap : MonoBehaviour
     
     private Level _level;
 
-    private void OnValidate()
+    private void Start()
     {
         _resourceSpawner ??= FindObjectOfType<ResourceSpawner>();
         _unitSpawner ??= FindObjectOfType<UnitSpawner>();
