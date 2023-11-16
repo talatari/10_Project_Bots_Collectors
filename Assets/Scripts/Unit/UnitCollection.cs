@@ -10,7 +10,7 @@ public class UnitCollection
     public Unit TryGetFreeUnit()
     {
         foreach (Unit unit in _units)
-            if (unit.IsWork == false)
+            if (unit.IsWork is false)
                 return unit;
 
         return null;
