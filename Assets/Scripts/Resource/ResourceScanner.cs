@@ -6,18 +6,18 @@ public class ResourceScanner : MonoBehaviour
     private UnitCollection _unitCollection;
     private Station _station;
 
+    private void Start() => 
+        _station.UnitCollectorFree += Scanning;
+
+    private void OnDestroy() => 
+        _station.UnitCollectorFree -= Scanning;
+    
     public void Initialize(ResourceCollection resourceCollection, UnitCollection unitCollection, Station station)
     {
         _resourceCollection = resourceCollection;
         _unitCollection = unitCollection;
         _station = station;
     }
-
-    private void Start() => 
-        _station.UnitCollectorFree += Scanning;
-
-    private void OnDestroy() => 
-        _station.UnitCollectorFree -= Scanning;
 
     private void Scanning()
     {

@@ -5,11 +5,17 @@ using Random = UnityEngine.Random;
 public class ResourceSpawner : MonoBehaviour
 {
     [SerializeField] private Resource _resourcePrefab;
-    [SerializeField, Range(0, 10)] private float _delaySpawn = 2f;
-    [SerializeField] private int _distance = 45;
+    [SerializeField, Range(0, 10)] private float _delaySpawn = 1f;
+    [SerializeField] private int _maxDistance = 45;
     
     private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
+    
+    private void OnDisable()
+    {
+        if (_coroutineSpawnWithDelay != null)
+            StopCoroutine(_coroutineSpawnWithDelay);
+    }
     
     public void Initialize(ResourceCollection resourceCollection) => 
         _resourceCollection = resourceCollection;
@@ -17,22 +23,26 @@ public class ResourceSpawner : MonoBehaviour
     public void StartSpawn() => 
         _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
-    private void OnDisable()
-    {
-        if (_coroutineSpawnWithDelay != null)
-            StopCoroutine(_coroutineSpawnWithDelay);
-    }
-
     private void Spawn()
     {
-        Vector3 spawnPosition = new Vector3(
-            x: Random.Range(_distance * -1, _distance),
-            y: 0,
-            z: Random.Range(_distance * -1, _distance));
-
-        Resource resource = Instantiate(_resourcePrefab, spawnPosition, Quaternion.identity);
+        Resource resource = Instantiate(_resourcePrefab, GenerateSpawnPosition(), Quaternion.identity);
         resource.transform.parent = gameObject.transform;
         _resourceCollection.Add(resource);
+    }
+
+    private Vector3 GenerateSpawnPosition() => 
+        new(x: SpawnPositionValidate(), y: 0, z: SpawnPositionValidate());
+
+    private float SpawnPositionValidate()
+    {
+        float border = 5;
+        float offset = 15;
+        float randomPosition = Random.Range(-1 * _maxDistance, _maxDistance);
+
+        if (randomPosition >= -1 * border || randomPosition <= border)
+            randomPosition += offset;
+
+        return randomPosition;
     }
 
     private IEnumerator<WaitForSeconds> SpawnWithDelay()

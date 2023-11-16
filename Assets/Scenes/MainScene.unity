@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
-  _delaySpawn: 0.9
+  _delaySpawn: 1
   _distance: 45
 --- !u!4 &795353967
 Transform:
