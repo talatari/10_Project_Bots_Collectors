@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
 {
     private UnitMover _unitMover;
     private UnitCollector _unitCollector;
-    private Transform _basePosition;
+    private Transform _stationPosition;
     
     public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
         _unitCollector.ResourceCollected -= OnResourceCollected;
 
     private void OnResourceCollected() => 
-        _unitMover.SetTarget(_basePosition);
+        _unitMover.SetTarget(_stationPosition);
 
     public void Destroy() => 
         Destroy(gameObject);
@@ -44,8 +44,8 @@ public class Unit : MonoBehaviour
         _unitCollector.ClearResource();
     }
 
-    public void SetBasePosition(Transform baseTransform) => 
-        _basePosition = baseTransform;
+    public void SetStationPosition(Transform stationPosition) => 
+        _stationPosition = stationPosition;
     
     
 }

@@ -13,7 +13,8 @@ public class UnitMover : MonoBehaviour
                 transform.position, _targetPoint.position, _speedMove * Time.deltaTime);
     }
     
-    public void SetTarget(Transform targetPoint) => _targetPoint = targetPoint;
+    public void SetTarget(Transform targetPoint) => 
+        _targetPoint = targetPoint;
 
     
 }
