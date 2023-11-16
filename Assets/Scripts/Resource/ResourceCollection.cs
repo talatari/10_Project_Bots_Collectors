@@ -17,7 +17,7 @@ public class ResourceCollection
 
     public void Add(Resource resource) => _resources.Add(resource);
 
-    public Resource TryGetPositionResource()
+    public Resource TryGetFreeResource()
     {
         foreach (Resource resource in _resources)
             if (resource.IsBusy == false)

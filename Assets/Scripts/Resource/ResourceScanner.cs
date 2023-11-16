@@ -16,7 +16,7 @@ public class ResourceScanner : MonoBehaviour
         while (_resourceCollection.CountFree() > 0 && _unitCollection.CountFree() > 0)
         {
             Unit unit = _unitCollection.TryGetFreeUnit();
-            Resource resource = _resourceCollection.TryGetPositionResource();
+            Resource resource = _resourceCollection.TryGetFreeResource();
             
             unit.AssignWork(resource);
             resource.SetBusy();
