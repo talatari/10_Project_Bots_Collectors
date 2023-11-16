@@ -39,7 +39,7 @@ public class ResourceSpawner : MonoBehaviour
         float offset = 15;
         float randomPosition = Random.Range(-1 * _maxDistance, _maxDistance);
 
-        if (randomPosition >= -1 * border || randomPosition <= border)
+        if (randomPosition > -1 * border && randomPosition < border)
             randomPosition += offset;
 
         return randomPosition;
