@@ -7,21 +7,20 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] private Resource _resourcePrefab;
     [SerializeField, Range(0, 10)] private float _delaySpawn = 2f;
     [SerializeField] private int _distance = 45;
-    [SerializeField] private int _count;
     
     private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
     
-    public void Initialize(ResourceCollection resourceCollection) => _resourceCollection = resourceCollection;
+    public void Initialize(ResourceCollection resourceCollection) => 
+        _resourceCollection = resourceCollection;
 
-    public void StartSpawn() => _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
+    public void StartSpawn() => 
+        _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
     private void OnDisable()
     {
         if (_coroutineSpawnWithDelay != null)
-        {
             StopCoroutine(_coroutineSpawnWithDelay);
-        }
     }
 
     private void Spawn()
@@ -32,11 +31,8 @@ public class ResourceSpawner : MonoBehaviour
             z: Random.Range(_distance * -1, _distance));
 
         Resource resource = Instantiate(_resourcePrefab, spawnPosition, Quaternion.identity);
-
         resource.transform.parent = gameObject.transform;
-        
         _resourceCollection.Add(resource);
-        _count++;
     }
 
     private IEnumerator<WaitForSeconds> SpawnWithDelay()
@@ -48,5 +44,6 @@ public class ResourceSpawner : MonoBehaviour
             yield return new WaitForSeconds(_delaySpawn);
         }
     }
+    
     
 }

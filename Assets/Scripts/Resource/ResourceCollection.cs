@@ -2,26 +2,16 @@ using System.Collections.Generic;
 
 public class ResourceCollection
 {
-    private List<Resource> _resources = new ();
+    private Queue<Resource> _resources = new ();
 
-    public int CountFree()
+    public void Add(Resource resource) => _resources.Enqueue(resource);
+
+    public Resource TryGetResource()
     {
-        int countFree = 0;
-
-        foreach (Resource resource in _resources)
-            if (resource.IsBusy == false)
-                countFree++;
-
-        return countFree;
-    }
-
-    public void Add(Resource resource) => _resources.Add(resource);
-
-    public Resource TryGetFreeResource()
-    {
-        foreach (Resource resource in _resources)
-            if (resource.IsBusy == false)
-                return resource;
+        if (_resources.Count > 0)
+        {
+            return _resources.Dequeue();
+        }
 
         return null;
     }
@@ -32,13 +22,6 @@ public class ResourceCollection
             resource.Destroy();
 
         _resources.Clear();
-    }
-
-    public void Remove(Resource resource)
-    {
-        _resources.Remove(resource);
-        
-        resource.Destroy();
     }
     
     

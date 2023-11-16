@@ -4,29 +4,30 @@ public class ResourceScanner : MonoBehaviour
 {
     private ResourceCollection _resourceCollection;
     private UnitCollection _unitCollection;
+    private Station _station;
 
-    public void Initialize(ResourceCollection resourceCollection, UnitCollection unitCollection)
+    public void Initialize(ResourceCollection resourceCollection, UnitCollection unitCollection, Station station)
     {
         _resourceCollection = resourceCollection;
         _unitCollection = unitCollection;
+        _station = station;
     }
-    
+
+    private void Start() => 
+        _station.UnitCollectorFree += Scanning;
+
+    private void OnDestroy() => 
+        _station.UnitCollectorFree -= Scanning;
+
     private void Scanning()
     {
-        while (_resourceCollection.CountFree() > 0 && _unitCollection.CountFree() > 0)
-        {
-            Unit unit = _unitCollection.TryGetFreeUnit();
-            Resource resource = _resourceCollection.TryGetFreeResource();
-            
+        Resource resource = _resourceCollection.TryGetResource();
+        Unit unit = _unitCollection.TryGetFreeUnit();
+
+        if (resource is not null && unit is not null)
             unit.AssignWork(resource);
-            resource.SetBusy();
-        }
-    }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S)) 
-            Scanning();
+        else
+            _resourceCollection.Add(resource);
     }
     
     

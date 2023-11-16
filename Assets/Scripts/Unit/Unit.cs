@@ -1,57 +1,51 @@
 using UnityEngine;
 
 [RequireComponent(
-    typeof(UnitMovement), 
+    typeof(UnitMover), 
     typeof(UnitCollector))]
 
 public class Unit : MonoBehaviour
 {
-    private UnitMovement _movement;
-    private UnitCollector _collector;
+    private UnitMover _unitMover;
+    private UnitCollector _unitCollector;
     private Transform _basePosition;
     
     public bool IsWork { get; private set; }
-    public UnitCollector Collector => _collector;
+    public UnitCollector UnitCollector => _unitCollector;
     
     private void Awake()
     {
-        _movement = GetComponent<UnitMovement>();
-        _collector = GetComponent<UnitCollector>();
+        _unitMover = GetComponent<UnitMover>();
+        _unitCollector = GetComponent<UnitCollector>();
     }
 
     private void OnEnable() => 
-        _collector.ResourceCollected += OnResourceCollected;
+        _unitCollector.ResourceCollected += OnResourceCollected;
 
     private void OnDisable() => 
-        _collector.ResourceCollected -= OnResourceCollected;
+        _unitCollector.ResourceCollected -= OnResourceCollected;
 
-    private void OnResourceCollected()
-    {
-        _movement.SetTarget(_basePosition);
-    }
+    private void OnResourceCollected() => 
+        _unitMover.SetTarget(_basePosition);
 
     public void Destroy() => 
         Destroy(gameObject);
 
     public void AssignWork(Resource resource)
     {
-        _movement.SetTarget(resource.transform);
-        _collector.SetTargetResource(resource);
+        _unitMover.SetTarget(resource.transform);
+        _unitCollector.SetTargetResource(resource);
         IsWork = true;
     }
 
     public void SetFree()
     {
         IsWork = false;
-        _collector.ClearResource();
-        
-        //TODO: event Unit Free for scanner
+        _unitCollector.ClearResource();
     }
 
     public void SetBasePosition(Transform baseTransform) => 
         _basePosition = baseTransform;
-
-    
     
     
 }

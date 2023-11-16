@@ -1,7 +1,6 @@
 using UnityEngine;
 
-//TODO: mover
-public class UnitMovement : MonoBehaviour
+public class UnitMover : MonoBehaviour
 {
     [SerializeField] private Unit _unit;
     [SerializeField] private float _speedMove = 5f;

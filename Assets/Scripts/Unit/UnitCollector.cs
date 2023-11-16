@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class UnitCollector: MonoBehaviour
 {
+    public event Action ResourceCollected;
+    
     public bool HasResource { get; private set; }
     public Resource Resource { get; private set; }
-
-    public event Action ResourceCollected;
-
-    private void Start()
-    {
-        HasResource = false;
-    }
+    
+    private void Start() => HasResource = false;
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -30,12 +27,13 @@ public class UnitCollector: MonoBehaviour
         }
     }
 
-    public void SetTargetResource(Resource resource) => 
-        Resource = resource;
+    public void SetTargetResource(Resource resource) => Resource = resource;
 
     public void ClearResource()
     {
         Resource = null;
         HasResource = false;
     }
+    
+    
 }
