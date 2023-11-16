@@ -13,7 +13,7 @@ public class ResourceSpawner : MonoBehaviour
     
     private void OnDisable()
     {
-        if (_coroutineSpawnWithDelay != null)
+        if (_coroutineSpawnWithDelay is not null)
             StopCoroutine(_coroutineSpawnWithDelay);
     }
     
