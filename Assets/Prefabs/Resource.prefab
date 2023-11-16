@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 539222099217508053}
   - component: {fileID: 4763041832598542168}
   m_Layer: 0
-  m_Name: Mineral
+  m_Name: Resource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

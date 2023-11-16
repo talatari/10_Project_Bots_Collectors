@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class MineralSpawner : MonoBehaviour
+public class ResourceSpawner : MonoBehaviour
 {
-    [SerializeField] private Mineral _mineralPrefab;
+    [SerializeField] private Resource _resourcePrefab;
     [SerializeField, Range(0, 10)] private float _delaySpawn = 2f;
     [SerializeField] private int _distance = 45;
     [SerializeField] private int _count;
     
-    private MineralCollection _mineralCollection;
+    private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
     
-    public void Initialize(MineralCollection mineralCollection) => _mineralCollection = mineralCollection;
+    public void Initialize(ResourceCollection resourceCollection) => _resourceCollection = resourceCollection;
 
     public void StartSpawn() => _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
@@ -31,11 +31,11 @@ public class MineralSpawner : MonoBehaviour
             y: 0,
             z: Random.Range(_distance * -1, _distance));
 
-        Mineral mineral = Instantiate(_mineralPrefab, spawnPosition, Quaternion.identity);
+        Resource resource = Instantiate(_resourcePrefab, spawnPosition, Quaternion.identity);
 
-        mineral.transform.parent = gameObject.transform;
+        resource.transform.parent = gameObject.transform;
         
-        _mineralCollection.Add(mineral);
+        _resourceCollection.Add(resource);
         _count++;
     }
 

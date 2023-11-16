@@ -4,35 +4,29 @@ public class Base : MonoBehaviour
 {
     [SerializeField] private int _countMinerals;
 
-    private MineralCollection _mineralCollection;
-    private CollectorCollection _collectorCollection;
-
-    private CollectorMovement _collectorMovement;
+    private ResourceCollection _resourceCollection;
+    private UnitMovement _unitMovement;
     
-    public void Initialize(MineralCollection mineralCollection, CollectorCollection collectorCollection)
-    {
-        _mineralCollection = mineralCollection;
-        _collectorCollection = collectorCollection;
-    }
+    public void Initialize(ResourceCollection resourceCollection) => _resourceCollection = resourceCollection;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.TryGetComponent(out Mineral mineral))
+        if (collider.gameObject.TryGetComponent(out Resource resource))
         {
-            _mineralCollection.Remove(mineral);
+            _resourceCollection.Remove(resource);
             
             _countMinerals++;
             
-            if (_collectorMovement != null) 
-                _collectorMovement.ClearTarget();
+            if (_unitMovement != null) 
+                _unitMovement.ClearTarget();
             
-            _collectorMovement = null;
+            _unitMovement = null;
         }
         
-        if (collider.gameObject.TryGetComponent(out Collector collector))
+        if (collider.gameObject.TryGetComponent(out Unit unit))
         {
-            if (collector.TryGetComponent(out CollectorMovement collectorMovement))
-                _collectorMovement = collectorMovement;
+            if (unit.TryGetComponent(out UnitMovement collectorMovement))
+                _unitMovement = collectorMovement;
         }
     }
     

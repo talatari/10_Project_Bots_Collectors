@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Mineral : MonoBehaviour
+public class Resource : MonoBehaviour
 {
     public bool IsBusy { get; private set; }
     

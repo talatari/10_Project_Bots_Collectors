@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] private MineralSpawner _mineralSpawner;
-    [SerializeField] private CollectorSpawner _collectorSpawner;
-    [SerializeField] private MineralScanner _mineralScanner;
+    [SerializeField] private ResourceSpawner _resourceSpawner;
+    [SerializeField] private UnitSpawner _unitSpawner;
+    [SerializeField] private ResourceScanner _resourceScanner;
     [SerializeField] private Base _base;
     
     private Level _level;
 
     private void OnValidate()
     {
-        _mineralSpawner ??= FindObjectOfType<MineralSpawner>();
-        _collectorSpawner ??= FindObjectOfType<CollectorSpawner>();
-        _mineralScanner ??= FindObjectOfType<MineralScanner>();
+        _resourceSpawner ??= FindObjectOfType<ResourceSpawner>();
+        _unitSpawner ??= FindObjectOfType<UnitSpawner>();
+        _resourceScanner ??= FindObjectOfType<ResourceScanner>();
         _base ??= FindObjectOfType<Base>();
     }
 
     public void Awake()
     {
-        MineralCollection mineralCollection = new MineralCollection();
-        CollectorCollection collectorCollection = new CollectorCollection();
+        ResourceCollection resourceCollection = new ResourceCollection();
+        UnitCollection unitCollection = new UnitCollection();
         
-        _mineralSpawner.Initialize(mineralCollection);
-        _collectorSpawner.Initialize(collectorCollection);
+        _resourceSpawner.Initialize(resourceCollection);
+        _unitSpawner.Initialize(unitCollection);
         
-        _mineralScanner.Initialize(mineralCollection, collectorCollection);
-        _base.Initialize(mineralCollection, collectorCollection);
+        _resourceScanner.Initialize(resourceCollection, unitCollection);
+        _base.Initialize(resourceCollection);
         
-        _level = new Level(_mineralSpawner, mineralCollection, _collectorSpawner, collectorCollection);
+        _level = new Level(_resourceSpawner, resourceCollection, _unitSpawner, unitCollection);
         _level.Start();
     }
 
