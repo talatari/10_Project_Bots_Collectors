@@ -176,6 +176,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8147909810463390044, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+      propertyPath: _unitPrefab
+      value: 
+      objectReference: {fileID: 7336767844495426843, guid: f2a0b42636b144d7ab76090ea46dc932, type: 3}
+    - target: {fileID: 8147909810463390044, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: _collectorPrefab
       value: 
       objectReference: {fileID: 7336767844495426843, guid: f2a0b42636b144d7ab76090ea46dc932, type: 3}
@@ -358,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdbbdb8de61c44d1b93280718e85ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mineralPrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
+  _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
   _delaySpawn: 0.3
   _distance: 45
   _count: 0
@@ -499,9 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd46b5dc6302c4f08b33f7733847ef99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mineralSpawner: {fileID: 795353966}
-  _collectorSpawner: {fileID: 404411195}
-  _mineralScanner: {fileID: 404411194}
+  _resourceSpawner: {fileID: 795353966}
+  _unitSpawner: {fileID: 404411195}
+  _resourceScanner: {fileID: 404411194}
   _base: {fileID: 404411200}
 --- !u!1001 &8218831912824147536
 PrefabInstance:
