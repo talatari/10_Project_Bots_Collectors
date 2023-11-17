@@ -6,11 +6,16 @@ public class ResourceSpawner : MonoBehaviour
 {
     [SerializeField] private Resource _resourcePrefab;
     [SerializeField, Range(0, 10)] private float _delaySpawn = 1f;
+    [SerializeField] private int _minDistance = 5;
     [SerializeField] private int _maxDistance = 45;
     
     private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
-    
+    private Vector3[] _matrixSpawnPosition;
+
+    private void Awake() => 
+        InitializeMatrixSpawnPosition();
+
     private void OnDisable()
     {
         if (_coroutineSpawnWithDelay is not null)
@@ -19,6 +24,16 @@ public class ResourceSpawner : MonoBehaviour
     
     public void Initialize(ResourceCollection resourceCollection) => 
         _resourceCollection = resourceCollection;
+    
+    private void InitializeMatrixSpawnPosition()
+    {
+        _matrixSpawnPosition = new Vector3[121]; // TODO: автоматизировать! если делать элементов с запасом, то будут 
+        int index = 0;                           // TODO: нулевые значения вектором. 121 - это при _minDistance = 5
+                                                 // TODO: 961 - при _minDistance = 15
+        for (int x = -1 *_minDistance; x <= _minDistance; x++)
+            for (int z = -1 * _minDistance; z <= _minDistance; z++)
+                _matrixSpawnPosition[index++] = new Vector3(x, 0, z);
+    }
 
     public void StartSpawn() => 
         _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
@@ -30,19 +45,21 @@ public class ResourceSpawner : MonoBehaviour
         _resourceCollection.Add(resource);
     }
 
-    private Vector3 GenerateSpawnPosition() => 
-        new(x: SpawnPositionValidate(), y: 0, z: SpawnPositionValidate());
-
-    private float SpawnPositionValidate()
+    private Vector3 GenerateSpawnPosition()
     {
-        float border = 5;
-        float offset = 15;
-        float randomPosition = Random.Range(-1 * _maxDistance, _maxDistance);
+        Vector3 spawnPosition = new Vector3(
+            x: Random.Range(-1 * _maxDistance, _maxDistance),
+            y: 0,
+            z: Random.Range(-1 * _maxDistance, _maxDistance));
 
-        if (randomPosition > -1 * border && randomPosition < border)
-            randomPosition += offset;
+        foreach (Vector3 noSpawnPosition in _matrixSpawnPosition)
+            if (spawnPosition == noSpawnPosition)
+            {
+                spawnPosition.x += _minDistance;
+                spawnPosition.z += _minDistance;
+            }
 
-        return randomPosition;
+        return spawnPosition;
     }
 
     private IEnumerator<WaitForSeconds> SpawnWithDelay()
