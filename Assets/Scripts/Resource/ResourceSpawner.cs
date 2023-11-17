@@ -27,9 +27,11 @@ public class ResourceSpawner : MonoBehaviour
     
     private void InitializeMatrixSpawnPosition()
     {
-        _matrixSpawnPosition = new Vector3[121]; // TODO: автоматизировать! если делать элементов с запасом, то будут 
-        int index = 0;                           // TODO: нулевые значения вектором. 121 - это при _minDistance = 5
-                                                 // TODO: 961 - при _minDistance = 15
+        // TODO: автоматизировать! если делать элементов с запасом, то будут нулевые значения вектором.
+        // TODO: 121 - это при _minDistance = 5. 961 - при _minDistance = 15.
+        _matrixSpawnPosition = new Vector3[121];
+        int index = 0;
+        
         for (int x = -1 *_minDistance; x <= _minDistance; x++)
             for (int z = -1 * _minDistance; z <= _minDistance; z++)
                 _matrixSpawnPosition[index++] = new Vector3(x, 0, z);
