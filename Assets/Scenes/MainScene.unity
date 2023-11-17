@@ -304,7 +304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
-  _delaySpawn: 1
+  _delaySpawn: 0
+  _minDistance: 5
   _maxDistance: 45
 --- !u!4 &795353967
 Transform:
@@ -473,6 +474,10 @@ PrefabInstance:
     - target: {fileID: 935666697495993766, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3585548733205040560, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3640256150252351644, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
       propertyPath: m_Name
