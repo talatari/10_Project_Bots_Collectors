@@ -15,6 +15,4 @@ public class UnitMover : MonoBehaviour
     
     public void SetTarget(Transform targetPoint) => 
         _targetPoint = targetPoint;
-
-    
 }

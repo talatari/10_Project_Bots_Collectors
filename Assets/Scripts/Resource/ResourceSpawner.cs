@@ -35,6 +35,8 @@ public class ResourceSpawner : MonoBehaviour
         for (int x = -1 *_minDistance; x <= _minDistance; x++)
             for (int z = -1 * _minDistance; z <= _minDistance; z++)
                 _matrixSpawnPosition[index++] = new Vector3(x, 0, z);
+        
+        print(index);
     }
 
     public void StartSpawn() => 
@@ -73,6 +75,4 @@ public class ResourceSpawner : MonoBehaviour
             yield return new WaitForSeconds(_delaySpawn);
         }
     }
-    
-    
 }

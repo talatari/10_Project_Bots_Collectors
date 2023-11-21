@@ -23,6 +23,4 @@ public class UnitCollection
 
         _units.Clear();
     }
-    
-    
 }

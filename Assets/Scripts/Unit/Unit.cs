@@ -46,6 +46,4 @@ public class Unit : MonoBehaviour
 
     public void SetStationPosition(Transform stationPosition) => 
         _stationPosition = stationPosition;
-    
-    
 }

@@ -22,6 +22,4 @@ public class ResourceCollection
 
         _resources.Clear();
     }
-    
-    
 }

@@ -84,6 +84,4 @@ public class FlyCamera : MonoBehaviour
 
         return p_Velocity;
     }
-    
-    
 }

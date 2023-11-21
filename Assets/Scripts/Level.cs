@@ -31,6 +31,4 @@ public class Level
         Clear();
         Start();
     }
-    
-    
 }

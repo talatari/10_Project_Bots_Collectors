@@ -36,6 +36,4 @@ public class UnitCollector: MonoBehaviour
         Resource = null;
         HasResource = false;
     }
-    
-    
 }
