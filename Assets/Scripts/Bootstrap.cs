@@ -27,6 +27,4 @@ public class Bootstrap : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) 
             _level.Restart();
     }
-    
-    
 }

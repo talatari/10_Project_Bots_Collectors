@@ -29,6 +29,4 @@ public class ResourceScanner : MonoBehaviour
         else
             _resourceCollection.Add(resource);
     }
-    
-    
 }

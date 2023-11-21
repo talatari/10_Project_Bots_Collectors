@@ -25,6 +25,4 @@ public class UnitSpawner : MonoBehaviour
             unit.SetStationPosition(_station.transform);
         }
     }
-    
-    
 }
