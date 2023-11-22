@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Station : MonoBehaviour
 {
-    [SerializeField] private int _countResources;
+    public int CountResources { get; set; }
 
     public event Action UnitCollectorFree;
+    public event Action CountResourcesUpdate;
     
     private void OnTriggerStay(Collider collider)
     {
@@ -18,8 +19,10 @@ public class Station : MonoBehaviour
             }
             
             unit.UnitCollector.Resource.Destroy();
-            _countResources++;
             unit.SetFree();
+            
+            CountResources++;
+            CountResourcesUpdate?.Invoke();
         }
     }
 }

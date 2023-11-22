@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceSpawner: {fileID: 0}
-  _unitSpawner: {fileID: 0}
   _resourceScanner: {fileID: 0}
-  _base: {fileID: 0}
+  _unitSpawner: {fileID: 0}
+  _station: {fileID: 0}
 --- !u!1 &4045645386531462649
 GameObject:
   m_ObjectHideFlags: 0
