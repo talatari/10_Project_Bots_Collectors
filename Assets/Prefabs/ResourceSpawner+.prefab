@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
-  _delaySpawn: 0.01
+  _delaySpawn: 1
   _minDistance: 5
   _maxDistance: 45
   _station: {fileID: 0}
