@@ -377,6 +377,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1497128914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3122344468844939582, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
+  m_PrefabInstance: {fileID: 4559406630103212118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1497128919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497128914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fe282170c0f409bb0f576c84db0d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _station: {fileID: 1931349248}
+  _buttonCreateStation: {fileID: 1497128914}
 --- !u!1 &1769021596
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,34 +650,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7756372560217322637, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8790842276199921151, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
       propertyPath: m_Name
       value: UI+
       objectReference: {fileID: 0}
-    - target: {fileID: 9048718053625008065, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 9048718053625008065, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 9048718053625008065, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 9048718053625008065, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3122344468844939582, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1497128919}
   m_SourcePrefab: {fileID: 100100000, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
 --- !u!1001 &8218831912824147536
 PrefabInstance:
