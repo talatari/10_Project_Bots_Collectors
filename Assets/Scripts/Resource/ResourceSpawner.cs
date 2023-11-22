@@ -8,15 +8,31 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField, Range(0, 10)] private float _delaySpawn = 1f;
     [SerializeField] private int _minDistance = 5;
     [SerializeField] private int _maxDistance = 45;
+    [SerializeField] private Station _station;
     
     private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
-    private Vector3[] _matrixSpawnPosition;
+    private float _leftBorder;
+    private float _rightBorder;
+    private float _downBorder;
+    private float _upBorder;
 
-    private void Awake() => 
-        InitializeMatrixSpawnPosition();
+    private void Start() => 
+        InitializeBorders();
 
-    private void OnDisable()
+    private void InitializeBorders()
+    {
+        _station ??= GetComponent<Station>();
+
+        Vector3 stationPosition = _station.transform.position;
+
+        _leftBorder = stationPosition.x - _minDistance;
+        _rightBorder = stationPosition.x + _minDistance;
+        _downBorder = stationPosition.z - _minDistance;
+        _upBorder = stationPosition.z + _minDistance;
+    }
+
+    private void OnDestroy()
     {
         if (_coroutineSpawnWithDelay is not null)
             StopCoroutine(_coroutineSpawnWithDelay);
@@ -25,20 +41,6 @@ public class ResourceSpawner : MonoBehaviour
     public void Initialize(ResourceCollection resourceCollection) => 
         _resourceCollection = resourceCollection;
     
-    private void InitializeMatrixSpawnPosition()
-    {
-        // TODO: автоматизировать! если делать элементов с запасом, то будут нулевые значения вектором.
-        // TODO: 121 - это при _minDistance = 5. 961 - при _minDistance = 15.
-        _matrixSpawnPosition = new Vector3[121];
-        int index = 0;
-        
-        for (int x = -1 *_minDistance; x <= _minDistance; x++)
-            for (int z = -1 * _minDistance; z <= _minDistance; z++)
-                _matrixSpawnPosition[index++] = new Vector3(x, 0, z);
-        
-        print(index);
-    }
-
     public void StartSpawn() => 
         _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
@@ -56,12 +58,19 @@ public class ResourceSpawner : MonoBehaviour
             y: 0,
             z: Random.Range(-1 * _maxDistance, _maxDistance));
 
-        foreach (Vector3 noSpawnPosition in _matrixSpawnPosition)
-            if (spawnPosition == noSpawnPosition)
-            {
+        if (spawnPosition.x >= _leftBorder && spawnPosition.x <= _rightBorder && 
+            spawnPosition.z <= _upBorder && spawnPosition.z >= _downBorder)
+        {
+            if (spawnPosition.x >= 0)
                 spawnPosition.x += _minDistance;
+            else
+                spawnPosition.x -= _minDistance;
+            
+            if (spawnPosition.z >= 0)
                 spawnPosition.z += _minDistance;
-            }
+            else
+                spawnPosition.z -= _minDistance;
+        }
 
         return spawnPosition;
     }

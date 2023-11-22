@@ -25,9 +25,6 @@ public class Unit : MonoBehaviour
     private void OnDisable() => 
         _unitCollector.ResourceCollected -= OnResourceCollected;
 
-    private void OnResourceCollected() => 
-        _unitMover.SetTarget(_stationPosition);
-
     public void Destroy() => 
         Destroy(gameObject);
 
@@ -46,4 +43,7 @@ public class Unit : MonoBehaviour
 
     public void SetStationPosition(Transform stationPosition) => 
         _stationPosition = stationPosition;
+
+    private void OnResourceCollected() => 
+        _unitMover.SetTarget(_stationPosition);
 }
