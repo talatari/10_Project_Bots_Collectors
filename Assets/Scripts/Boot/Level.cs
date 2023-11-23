@@ -23,7 +23,6 @@ public class Level
     public void Start()
     {
         _resourceSpawner.StartSpawn();
-        _unitSpawner.Spawn();
     }
 
     public void Restart()

@@ -8,21 +8,24 @@ public class UnitSpawner : MonoBehaviour
     private UnitCollection _unitCollection;
     private Station _station;
 
+    private void Start()
+    {
+        for (int i = 0; i < _countUnit; i++)
+            SpawnUnit();
+    }
+
     public void Initialize(UnitCollection unitCollection, Station station)
     {
         _unitCollection = unitCollection;
         _station = station;
     }
 
-    public void Spawn()
+    public void SpawnUnit()
     {
-        for (int i = 0; i < _countUnit; i++)
-        {
-            Unit unit = Instantiate(_unitPrefab, Vector3.zero, Quaternion.identity);
-            _unitCollection.Add(unit);
+        Unit unit = Instantiate(_unitPrefab, _station.transform.position, Quaternion.identity);
+        _unitCollection.Add(unit, _station);
 
-            unit.transform.parent = gameObject.transform;
-            unit.SetStationPosition(_station.transform);
-        }
+        unit.transform.parent = gameObject.transform;
+        unit.SetStationPosition(_station.transform);
     }
 }
