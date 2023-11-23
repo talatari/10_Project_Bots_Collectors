@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Station : MonoBehaviour
+public class Station : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private int _amountResourcesForCreateStation = 3;
+    [SerializeField] private int _amountResourcesForCreateUnit = 3;
+    [SerializeField] private UnitSpawner _unitSpawner;
     
     public int CountResources { get; set; }
 
@@ -27,19 +29,26 @@ public class Station : MonoBehaviour
             
             IncreaseCountResources();
             
-            CanCreateStation();
+            CanCreateUnit();
         }
+    }
+    
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        print("Tap station");
     }
 
     public void CreateStationHadle()
     {
         if (HaveResources())
         {
-            CountResources -= _amountResourcesForCreateStation;
+            CountResources -= _amountResourcesForCreateUnit;
             CountResourcesUpdate?.Invoke();
+
+            CreateUnit();
         }
         
-        CanCreateStation();
+        CanCreateUnit();
     }
 
     private void IncreaseCountResources()
@@ -48,7 +57,7 @@ public class Station : MonoBehaviour
         CountResourcesUpdate?.Invoke();
     }
 
-    private void CanCreateStation()
+    private void CanCreateUnit()
     {
         if (HaveResources())
             EnoughResources?.Invoke();
@@ -57,5 +66,8 @@ public class Station : MonoBehaviour
     }
 
     private bool HaveResources() => 
-        CountResources - _amountResourcesForCreateStation >= 0;
+        CountResources - _amountResourcesForCreateUnit >= 0;
+
+    private void CreateUnit() =>
+        _unitSpawner.SpawnUnit();
 }

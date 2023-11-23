@@ -2,25 +2,45 @@ using System.Collections.Generic;
 
 public class UnitCollection
 {
-    private List<Unit> _units = new();
+    private List<StationUnits> _stationUnits = new();
     
-    public void Add(Unit unit) => 
-        _units.Add(unit);
+    public void Add(Unit unit, Station station) => 
+        _stationUnits.Add(new StationUnits(unit, station));
 
     public Unit TryGetFreeUnit()
     {
-        foreach (Unit unit in _units)
+        foreach (StationUnits _unit in _stationUnits)
+        {
+            Unit unit = _unit.GetUnit();
+            
             if (unit.IsWork is false)
                 return unit;
+        }
 
         return null;
     }
 
     public void Clear()
     {
-        foreach (Unit unit in _units) 
-            unit.Destroy();
+        foreach (StationUnits _unit in _stationUnits) 
+            _unit.GetUnit().Destroy();
 
-        _units.Clear();
+        _stationUnits.Clear();
     }
+}
+
+public class StationUnits
+{
+    private Unit _unit;
+    private Station _station;
+
+    public StationUnits(Unit unit, Station station)
+    {
+        _unit = unit;
+        _station = station;
+    }
+
+    public Unit GetUnit() => _unit;
+
+    public Station GetStation() => _station;
 }
