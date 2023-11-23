@@ -18,12 +18,14 @@ public class UICountResources : MonoBehaviour
         
         _station.CountResourcesUpdate += OnChangeCountResources;
         _station.EnoughResources += OnActiveButtonCreateStation;
+        _station.NotEnoughResources += OnInActiveButtonCreateStation;
     }
 
     private void OnDestroy()
     {
         _station.CountResourcesUpdate -= OnChangeCountResources;
-        _station.EnoughResources -= OnActiveButtonCreateStation;
+        _station.EnoughResources -= OnActiveButtonCreateStation;        
+        _station.NotEnoughResources += OnInActiveButtonCreateStation;
     }
 
     private void OnChangeCountResources() => 
@@ -31,4 +33,7 @@ public class UICountResources : MonoBehaviour
 
     private void OnActiveButtonCreateStation() => 
         _buttonCreateStation.SetActive(true);
+    
+    private void OnInActiveButtonCreateStation() => 
+        _buttonCreateStation.SetActive(false);
 }

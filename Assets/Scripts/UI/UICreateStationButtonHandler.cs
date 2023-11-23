@@ -9,6 +9,5 @@ public class UICreateStationButtonHandler : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         _station.CreateStationHadle();
-        _buttonCreateStation.SetActive(false);
     }
 }

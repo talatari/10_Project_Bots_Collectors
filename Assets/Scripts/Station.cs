@@ -9,7 +9,8 @@ public class Station : MonoBehaviour
 
     public event Action UnitCollectorFree;
     public event Action CountResourcesUpdate;
-    public event Action EnoughResources; 
+    public event Action EnoughResources;
+    public event Action NotEnoughResources;
     
     private void OnTriggerStay(Collider collider)
     {
@@ -25,22 +26,36 @@ public class Station : MonoBehaviour
             unit.SetFree();
             
             IncreaseCountResources();
+            
+            CanCreateStation();
         }
+    }
+
+    public void CreateStationHadle()
+    {
+        if (HaveResources())
+        {
+            CountResources -= _amountResourcesForCreateStation;
+            CountResourcesUpdate?.Invoke();
+        }
+        
+        CanCreateStation();
     }
 
     private void IncreaseCountResources()
     {
         CountResources++;
         CountResourcesUpdate?.Invoke();
-
-        if (CountResources >= _amountResourcesForCreateStation)
-            EnoughResources?.Invoke();
     }
 
-    public void CreateStationHadle()
+    private void CanCreateStation()
     {
-        print(CountResources);
-        CountResources -= _amountResourcesForCreateStation;
-        CountResourcesUpdate?.Invoke();
+        if (HaveResources())
+            EnoughResources?.Invoke();
+        else
+            NotEnoughResources?.Invoke();
     }
+
+    private bool HaveResources() => 
+        CountResources - _amountResourcesForCreateStation >= 0;
 }
