@@ -11,9 +11,9 @@ public class UnitCollector: MonoBehaviour
     private void Start() => 
         HasResource = false;
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collider.TryGetComponent(out Resource resource))
+        if (other.TryGetComponent(out Resource resource))
         {
             if (resource == Resource)
             {

@@ -3,16 +3,11 @@ using UnityEngine;
 public class UnitSpawner : MonoBehaviour
 {
     [SerializeField] private Unit _unitPrefab;
-    [SerializeField] private int _countUnit = 3;
-
+    
+    public int CountUnit = 3;
+    
     private UnitCollection _unitCollection;
     private Station _station;
-
-    private void Start()
-    {
-        for (int i = 0; i < _countUnit; i++)
-            SpawnUnit();
-    }
 
     public void Initialize(UnitCollection unitCollection, Station station)
     {
@@ -26,6 +21,11 @@ public class UnitSpawner : MonoBehaviour
         _unitCollection.Add(unit, _station);
 
         unit.transform.parent = gameObject.transform;
-        unit.SetStationPosition(_station.transform);
+        unit.SetStationPosition(_station.transform.position);
+    }
+
+    public void AssginUnit(Station station, Unit unit)
+    {
+        _unitCollection.AssginUnit(station, unit);
     }
 }

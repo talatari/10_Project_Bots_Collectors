@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(
@@ -6,9 +7,12 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField] private Station _stationPrefab;
+    
     private UnitMover _unitMover;
     private UnitCollector _unitCollector;
-    private Transform _stationPosition;
+    private Vector3 _stationPosition;
+    private Coroutine _coroutineWaitUnitForBuild;
     
     public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
@@ -25,13 +29,26 @@ public class Unit : MonoBehaviour
     private void OnDisable() => 
         _unitCollector.ResourceCollected -= OnResourceCollected;
 
+    private void OnDestroy()
+    {
+        if (_coroutineWaitUnitForBuild is not null)
+            StopCoroutine(_coroutineWaitUnitForBuild);
+    }
+
     public void Destroy() => 
         Destroy(gameObject);
 
-    public void AssignWork(Resource resource)
+    public void CollectResource(Resource resource)
     {
-        _unitMover.SetTarget(resource.transform);
+        _unitMover.SetTarget(resource.transform.position);
         _unitCollector.SetTargetResource(resource);
+        IsWork = true;
+    }
+
+    public void BuildStation(Vector3 buildPosition)
+    {
+        _unitMover.SetTarget(buildPosition);
+        _coroutineWaitUnitForBuild = StartCoroutine(WaitUnitForBuild(buildPosition));
         IsWork = true;
     }
 
@@ -41,9 +58,26 @@ public class Unit : MonoBehaviour
         _unitCollector.ClearResource();
     }
 
-    public void SetStationPosition(Transform stationPosition) => 
+    public void SetStationPosition(Vector3 stationPosition) => 
         _stationPosition = stationPosition;
 
     private void OnResourceCollected() => 
         _unitMover.SetTarget(_stationPosition);
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private IEnumerator WaitUnitForBuild(Vector3 buildPosition)
+    {
+        while (transform.position != buildPosition)
+        {
+            yield return null;
+        }
+
+        Station newStation = Instantiate(_stationPrefab, buildPosition, Quaternion.identity);
+        gameObject.transform.parent = newStation.transform;
+
+        if (newStation.TryGetComponent(out UnitSpawner unitSpawner))
+        {
+            unitSpawner.AssginUnit(newStation, this);
+        }
+    }
 }

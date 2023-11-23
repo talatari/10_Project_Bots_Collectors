@@ -131,13 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 771293562822512537, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+      propertyPath: _stationSpawner
+      value: 
+      objectReference: {fileID: 964021408}
     - target: {fileID: 1086189490998539479, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_Name
       value: Station+
       objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -24
       objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 14.6
       objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalRotation.w
@@ -180,6 +184,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+--- !u!114 &404411188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8147909810463390044, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+  m_PrefabInstance: {fileID: 404411187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a9d1bef8b5d46ca909a7dd9d135959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +392,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &964021408 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5023677506994525860, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
+  m_PrefabInstance: {fileID: 8218831912824147536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c653eaaad0bea424b8c65d3984dc9c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769021596
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,18 +562,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 951771186168932403, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_text
-      value: Create Unit
-      objectReference: {fileID: 0}
-    - target: {fileID: 3122344468844939582, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_Name
-      value: CreateUnitButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4217163940338000831, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: m_Name
-      value: CreateUnitButtonText
-      objectReference: {fileID: 0}
+    - target: {fileID: 582150281221731384, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
+      propertyPath: _station
+      value: 
+      objectReference: {fileID: 1931349248}
+    - target: {fileID: 943014536093838261, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
+      propertyPath: _station
+      value: 
+      objectReference: {fileID: 1931349248}
     - target: {fileID: 6471829861332436528, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
       propertyPath: _station
       value: 
@@ -632,10 +654,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7782261610082373030, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
-      propertyPath: _station
-      value: 
-      objectReference: {fileID: 1931349248}
     - target: {fileID: 8790842276199921151, guid: 397e11368c39749d5b61bed2f9ae9d8f, type: 3}
       propertyPath: m_Name
       value: UI+
@@ -700,7 +718,7 @@ PrefabInstance:
     - target: {fileID: 2211250235491612973, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
       propertyPath: _unitSpawner
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 404411188}
     - target: {fileID: 2211250235491612973, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
       propertyPath: _resourceScanner
       value: 

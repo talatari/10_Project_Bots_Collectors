@@ -1,24 +1,31 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Station : MonoBehaviour, IPointerDownHandler
+public class Station : MonoBehaviour
 {
-    [SerializeField] private int _amountResourcesForCreateUnit = 3;
     [SerializeField] private UnitSpawner _unitSpawner;
+    [SerializeField] private StationSpawner _stationSpawner;
     
+    private int _amountResourcesForCreateUnit = 3;
+    private int _amountResourcesForCreateStation = 5;
+    private bool _isModeSelectParentStation;
+    private Vector3 _stationPosition;
+    private Vector3 _stationSpawnPosition;
+
     public int CountResources { get; set; }
 
     public event Action UnitCollectorFree;
     public event Action CountResourcesUpdate;
-    public event Action EnoughResources;
-    public event Action NotEnoughResources;
+    public event Action EnoughResourcesForUnit;
+    public event Action NotEnoughResourcesForUnit;
+    public event Action EnoughResourcesForStation;
+    public event Action NotEnoughResourcesForStation;
     
-    private void OnTriggerStay(Collider collider)
+    private void OnTriggerStay(Collider other)
     {
-        if (collider.TryGetComponent(out Unit unit))
+        if (other.TryGetComponent(out Unit unit))
         {
-            if (unit.UnitCollector.HasResource is false)
+            if (unit.UnitCollector.HasResource == false)
             {
                 UnitCollectorFree?.Invoke();
                 return;
@@ -30,17 +37,30 @@ public class Station : MonoBehaviour, IPointerDownHandler
             IncreaseCountResources();
             
             CanCreateUnit();
+            CanCreateStation();
+
+            if (_stationSpawner.HaveSpawnPointStation)
+            {
+                unit.BuildStation(_stationSpawner.GetSpawnPoint());
+            }
         }
     }
     
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnMouseDown()
     {
-        print("Tap station");
+        if (_isModeSelectParentStation)
+        {
+            _stationPosition = transform.position;
+            _isModeSelectParentStation = false;
+            _stationSpawner.IsModeSelectSpawnPointStation = true;
+            
+            print($"_stationPosition = {_stationPosition}");
+        }
     }
 
-    public void CreateStationHadle()
+    public void CreateUnitHadle()
     {
-        if (HaveResources())
+        if (HaveResourcesForCreateUnit())
         {
             CountResources -= _amountResourcesForCreateUnit;
             CountResourcesUpdate?.Invoke();
@@ -49,6 +69,21 @@ public class Station : MonoBehaviour, IPointerDownHandler
         }
         
         CanCreateUnit();
+        CanCreateStation();
+    }
+    
+    public void CreateStationHadle()
+    {
+        if (HaveResourcesForCreateStation())
+        {
+            CountResources -= _amountResourcesForCreateStation;
+            CountResourcesUpdate?.Invoke();
+
+            CreateStation();
+        }
+        
+        CanCreateUnit();
+        CanCreateStation();
     }
 
     private void IncreaseCountResources()
@@ -59,15 +94,29 @@ public class Station : MonoBehaviour, IPointerDownHandler
 
     private void CanCreateUnit()
     {
-        if (HaveResources())
-            EnoughResources?.Invoke();
+        if (HaveResourcesForCreateUnit())
+            EnoughResourcesForUnit?.Invoke();
         else
-            NotEnoughResources?.Invoke();
+            NotEnoughResourcesForUnit?.Invoke();
+    }
+    
+    private void CanCreateStation()
+    {
+        if (HaveResourcesForCreateStation())
+            EnoughResourcesForStation?.Invoke();
+        else
+            NotEnoughResourcesForStation?.Invoke();
     }
 
-    private bool HaveResources() => 
+    private bool HaveResourcesForCreateUnit() => 
         CountResources - _amountResourcesForCreateUnit >= 0;
+    
+    private bool HaveResourcesForCreateStation() => 
+        CountResources - _amountResourcesForCreateStation >= 0;
 
     private void CreateUnit() =>
         _unitSpawner.SpawnUnit();
+
+    private void CreateStation() => 
+        _isModeSelectParentStation = true;
 }

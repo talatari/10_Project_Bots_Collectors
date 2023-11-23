@@ -6,12 +6,18 @@ public class ResourceScanner : MonoBehaviour
     private UnitCollection _unitCollection;
     private Station _station;
 
-    private void Start() => 
-        _station.UnitCollectorFree += Scanning;
+    private void Start()
+    {
+        if (_station is not null)
+            _station.UnitCollectorFree += Scanning;
+    }
 
-    private void OnDestroy() => 
-        _station.UnitCollectorFree -= Scanning;
-    
+    private void OnDestroy()
+    {
+        if (_station is not null)
+            _station.UnitCollectorFree -= Scanning;
+    }
+
     public void Initialize(ResourceCollection resourceCollection, UnitCollection unitCollection, Station station)
     {
         _resourceCollection = resourceCollection;
@@ -25,7 +31,7 @@ public class ResourceScanner : MonoBehaviour
         Unit unit = _unitCollection.TryGetFreeUnit();
 
         if (resource is not null && unit is not null)
-            unit.AssignWork(resource);
+            unit.CollectResource(resource);
         else
             _resourceCollection.Add(resource);
     }
