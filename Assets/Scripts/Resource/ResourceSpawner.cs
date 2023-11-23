@@ -7,11 +7,12 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] private Resource _resourcePrefab;
     [SerializeField, Range(0, 10)] private float _delaySpawn = 1f;
     [SerializeField] private int _minDistance = 5;
-    [SerializeField] private int _maxDistance = 45;
+    [SerializeField] private int _maxDistance = 48;
     [SerializeField] private Station _station;
     
     private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
+    private Vector3 _stationPosition;
     private float _leftBorder;
     private float _rightBorder;
     private float _downBorder;
@@ -24,12 +25,12 @@ public class ResourceSpawner : MonoBehaviour
     {
         _station ??= GetComponent<Station>();
 
-        Vector3 stationPosition = _station.transform.position;
+        _stationPosition = _station.transform.position;
 
-        _leftBorder = stationPosition.x - _minDistance;
-        _rightBorder = stationPosition.x + _minDistance;
-        _downBorder = stationPosition.z - _minDistance;
-        _upBorder = stationPosition.z + _minDistance;
+        _leftBorder = _stationPosition.x - _minDistance;
+        _rightBorder = _stationPosition.x + _minDistance;
+        _downBorder = _stationPosition.z - _minDistance;
+        _upBorder = _stationPosition.z + _minDistance;
     }
 
     private void OnDestroy()
@@ -61,12 +62,12 @@ public class ResourceSpawner : MonoBehaviour
         if (spawnPosition.x >= _leftBorder && spawnPosition.x <= _rightBorder && 
             spawnPosition.z <= _upBorder && spawnPosition.z >= _downBorder)
         {
-            if (spawnPosition.x >= 0)
+            if (spawnPosition.x >= _stationPosition.x)
                 spawnPosition.x += _minDistance;
             else
                 spawnPosition.x -= _minDistance;
             
-            if (spawnPosition.z >= 0)
+            if (spawnPosition.z >= _stationPosition.z)
                 spawnPosition.z += _minDistance;
             else
                 spawnPosition.z -= _minDistance;

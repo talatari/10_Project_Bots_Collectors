@@ -11,19 +11,29 @@ public class UnitCollection
     {
         foreach (StationUnits _unit in _stationUnits)
         {
-            Unit unit = _unit.GetUnit();
-            
-            if (unit.IsWork is false)
-                return unit;
+            if (_unit.Unit.IsWork is false)
+                return _unit.Unit;
         }
 
         return null;
     }
 
+    public void AssginUnit(Station station, Unit unit)
+    {
+        foreach (StationUnits _unit in _stationUnits)
+        {
+            if (_unit.Unit == unit)
+            {
+                _unit.Station = station;
+                unit.SetFree();
+            }
+        }
+    }
+
     public void Clear()
     {
         foreach (StationUnits _unit in _stationUnits) 
-            _unit.GetUnit().Destroy();
+            _unit.Unit.Destroy();
 
         _stationUnits.Clear();
     }
@@ -31,16 +41,12 @@ public class UnitCollection
 
 public class StationUnits
 {
-    private Unit _unit;
-    private Station _station;
+    public Unit Unit;
+    public Station Station;
 
     public StationUnits(Unit unit, Station station)
     {
-        _unit = unit;
-        _station = station;
+        Unit = unit;
+        Station = station;
     }
-
-    public Unit GetUnit() => _unit;
-
-    public Station GetStation() => _station;
 }

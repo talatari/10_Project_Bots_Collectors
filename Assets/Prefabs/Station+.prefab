@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f1b35d3dce0460fb14035b9e78d360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amountResourcesForCreateUnit: 3
   _unitSpawner: {fileID: 8147909810463390044}
+  _stationSpawner: {fileID: 0}
 --- !u!114 &8147909810463390044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitPrefab: {fileID: 7336767844495426843, guid: f2a0b42636b144d7ab76090ea46dc932, type: 3}
-  _countUnit: 3
+  CountUnit: 3
 --- !u!114 &726170920085429773
 MonoBehaviour:
   m_ObjectHideFlags: 0
