@@ -3,15 +3,13 @@ using UnityEngine;
 
 public class StationWallet : MonoBehaviour
 {
-    [SerializeField] private StationCollector _stationCollector;
-    
+    private StationResourceCollector _stationResourceCollector;
     private int _amountResourcesForCreateUnit = 3;
     private int _amountResourcesForCreateStation = 5;
 
-    public int CountResources { get; set; } = 3;
+    public int CountResources { get; set; } = 11;
     
     public event Action CountResourcesUpdate;
-    public event Action SpawnUnit;
     
     public event Action EnoughResourcesForUnit;
     public event Action NotEnoughResourcesForUnit;
@@ -19,35 +17,34 @@ public class StationWallet : MonoBehaviour
     public event Action EnoughResourcesForStation;
     public event Action NotEnoughResourcesForStation;
 
+    private void Awake() => 
+        _stationResourceCollector = GetComponent<StationResourceCollector>();
+
     private void Start()
     {
         CanSpawnUnit();
-    }
+        CanSpawnStation();
+    } 
 
-    private void OnEnable()
-    {
-        _stationCollector.CollectResource += OnIncreaseCountResources;
-    }
+    private void OnEnable() => 
+        _stationResourceCollector.ResourceCollected += OnIncreaseCountStationResources;
 
-    private void OnDisable()
-    {
-        _stationCollector.CollectResource -= OnIncreaseCountResources;
-    }
+    private void OnDisable() => 
+        _stationResourceCollector.ResourceCollected -= OnIncreaseCountStationResources;
 
-    public void SpawnUnitHadle()
+    public void DecreaseResourcesForUnit()
     {
         if (HaveResourcesForCreateUnit())
         {
             CountResources -= _amountResourcesForCreateUnit;
             CountResourcesUpdate?.Invoke();
-            SpawnUnit?.Invoke();
         }
         
         CanSpawnUnit();
         CanSpawnStation();
     }
     
-    public void CreateStationHadle()
+    public void DecreaseResourcesForStation()
     {
         if (HaveResourcesForCreateStation())
         {
@@ -59,7 +56,7 @@ public class StationWallet : MonoBehaviour
         CanSpawnStation();
     }
 
-    private void OnIncreaseCountResources()
+    private void OnIncreaseCountStationResources()
     {
         CountResources++;
         CountResourcesUpdate?.Invoke();
