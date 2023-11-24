@@ -64,7 +64,6 @@ public class Unit : MonoBehaviour
     private void OnResourceCollected() => 
         _unitMover.SetTarget(_stationPosition);
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator WaitUnitForBuild(Vector3 buildPosition)
     {
         while (transform.position != buildPosition)

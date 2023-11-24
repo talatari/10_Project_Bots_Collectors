@@ -2,36 +2,9 @@ using UnityEngine;
 
 public class StationSpawner : MonoBehaviour
 {
-    public bool IsModeSelectSpawnPointStation;
-    public bool HaveSpawnPointStation;
+    [SerializeField] private Station _stationPrefab;
+    [SerializeField] private LevelHandler _levelHandler;
     
-    private Camera _camera;
-    private Vector3 _spawnPoint;
-
-    private void Start() => 
-        _camera = Camera.main;
-
-    public void OnMouseDown()
-    {
-        if (IsModeSelectSpawnPointStation)
-        {
-            int normalize = 100;
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            Vector3 direction = ray.direction;
-        
-            _spawnPoint.x = direction.x * normalize;
-            _spawnPoint.z = direction.z * normalize;
-
-            IsModeSelectSpawnPointStation = false;
-            HaveSpawnPointStation = true;
-            
-            print($"_spawnPoint = {_spawnPoint}");
-        }
-    }
-    
-    public Vector3 GetSpawnPoint()
-    {
-        HaveSpawnPointStation = false;
-        return _spawnPoint;
-    }
+    public void SpawStation() => 
+        Instantiate(_stationPrefab, _levelHandler.GetSpawnPoint(), Quaternion.identity);
 }

@@ -115,6 +115,8 @@ GameObject:
   m_Component:
   - component: {fileID: 935666697495993766}
   - component: {fileID: 2211250235491612973}
+  - component: {fileID: 8321315219137865999}
+  - component: {fileID: 3753056051455331969}
   m_Layer: 0
   m_Name: Level+
   m_TagString: Untagged
@@ -151,10 +153,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd46b5dc6302c4f08b33f7733847ef99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceSpawner: {fileID: 0}
+  _resourceSpawner: {fileID: 8321315219137865999}
   _resourceScanner: {fileID: 0}
   _unitSpawner: {fileID: 0}
   _station: {fileID: 0}
+--- !u!114 &8321315219137865999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640256150252351644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdbbdb8de61c44d1b93280718e85ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourcePrefab: {fileID: 4763041832598542168, guid: b8d824d7c163f49cba7384ab2216f944, type: 3}
+  _delaySpawn: 1
+  _minDistance: 5
+  _maxDistance: 48
+  _station: {fileID: 771293562822512537, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+--- !u!114 &3753056051455331969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640256150252351644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c653eaaad0bea424b8c65d3984dc9c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsModeSelectSpawnPointStation: 0
+  HaveSpawnPointStation: 0
 --- !u!1 &4045645386531462649
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6153703075623512880}
-  - component: {fileID: 5023677506994525860}
+  - component: {fileID: 7824638970704164210}
   - component: {fileID: 3073918626458313716}
   - component: {fileID: 3585548733205040560}
   - component: {fileID: 812913568248303755}
@@ -540,7 +573,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 935666697495993766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5023677506994525860
+--- !u!114 &7824638970704164210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -549,7 +582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8697612223373673382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c653eaaad0bea424b8c65d3984dc9c56, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fac9390e010d42128bacee1d2fa6e34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!33 &3073918626458313716

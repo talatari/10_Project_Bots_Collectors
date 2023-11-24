@@ -31,8 +31,15 @@ public class ResourceScanner : MonoBehaviour
         Unit unit = _unitCollection.TryGetFreeUnit();
 
         if (resource is not null && unit is not null)
+        {
+            print("unit.CollectResource(resource);");
             unit.CollectResource(resource);
+        }
         else
+        {
+            print("_resourceCollection.Add(resource);");
             _resourceCollection.Add(resource);
+        }
+            
     }
 }
