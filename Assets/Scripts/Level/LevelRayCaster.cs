@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class LevelHandler : MonoBehaviour
+public class LevelRayCaster : MonoBehaviour
 {
     private Camera _camera;
     private Vector3 _spawnPoint;
+    private Station _station;
+    
     
     private void Start() => 
         _camera = Camera.main;
@@ -16,6 +18,16 @@ public class LevelHandler : MonoBehaviour
     
         _spawnPoint.x = direction.x * normalize;
         _spawnPoint.z = direction.z * normalize;
+        
+        print("Запомнили точку спавна новой базы в LevelRayCaster");
+        print(_spawnPoint);
+    }
+
+    public void SetStation(Station station)
+    {
+        _station = station;
+        print("Передали родительскую базу в LevelRayCaster");
+        print(_station.transform.position);
     }
     
     public Vector3 GetSpawnPoint() => 

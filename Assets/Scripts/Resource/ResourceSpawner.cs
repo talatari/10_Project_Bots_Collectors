@@ -9,10 +9,10 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField, Range(0, 10)] private float _delaySpawn = 1f;
     [SerializeField] private int _minDistance = 5;
     [SerializeField] private int _maxDistance = 48;
-    [SerializeField] private Station _station;
 
-    public event Action<Resource> SpawnResource; 
-    
+    public event Action<Resource> SpawnedResource;
+
+    private Station _station;
     private Coroutine _coroutineSpawnWithDelay;
     private Vector3 _stationPosition;
     private float _leftBorder;
@@ -20,38 +20,32 @@ public class ResourceSpawner : MonoBehaviour
     private float _downBorder;
     private float _upBorder;
 
-    private void Start() => 
-        InitializeBorders();
-
-    private void InitializeBorders()
+    private void Awake()
     {
-        _station ??= GetComponent<Station>();
-
+        _station = FindObjectOfType<Station>();
         _stationPosition = _station.transform.position;
 
         _leftBorder = _stationPosition.x - _minDistance;
         _rightBorder = _stationPosition.x + _minDistance;
         _downBorder = _stationPosition.z - _minDistance;
         _upBorder = _stationPosition.z + _minDistance;
-
-        StartSpawn();
     }
+
+    private void OnEnable() => 
+        _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
     private void OnDestroy()
     {
         if (_coroutineSpawnWithDelay is not null)
             StopCoroutine(_coroutineSpawnWithDelay);
     }
-    
-    private void StartSpawn() => 
-        _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
-    private void Spawn()
+    private void SpawnResource()
     {
         Resource resource = Instantiate(_resourcePrefab, GenerateSpawnPosition(), Quaternion.identity);
         resource.transform.parent = gameObject.transform;
         
-        SpawnResource?.Invoke(resource);
+        SpawnedResource?.Invoke(resource);
     }
 
     private Vector3 GenerateSpawnPosition()
@@ -82,7 +76,7 @@ public class ResourceSpawner : MonoBehaviour
     {
         while (true)
         {
-            Spawn();
+            SpawnResource();
 
             yield return new WaitForSeconds(_delaySpawn);
         }

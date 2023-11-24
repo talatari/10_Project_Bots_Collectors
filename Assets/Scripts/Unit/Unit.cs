@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     private UnitCollector _unitCollector;
     private UnitBuilder _unitBuilder;
     private Vector3 _stationPosition;
-    
+
     public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
     
@@ -34,15 +34,16 @@ public class Unit : MonoBehaviour
         IsWork = true;
     }
 
+    public void SpawnStation(Vector3 buildPosition)
+    {
+        _unitBuilder.BuildStation(buildPosition);
+        IsWork = true;
+    }
+
     public void SetFree()
     {
         IsWork = false;
         _unitCollector.ClearResource();
-    }
-
-    public void SetBusy()
-    {
-        IsWork = true;
     }
 
     public void SetStationPosition(Vector3 stationPosition) => 
