@@ -24,8 +24,6 @@ public class UnitSpawner : MonoBehaviour
         unit.SetStationPosition(_station.transform.position);
     }
 
-    public void AssginUnit(Station station, Unit unit)
-    {
+    public void AssginUnit(Station station, Unit unit) => 
         _unitCollection.AssginUnit(station, unit);
-    }
 }

@@ -5,6 +5,7 @@ public class Station : MonoBehaviour
 {
     [SerializeField] private UnitSpawner _unitSpawner;
     [SerializeField] private StationSpawner _stationSpawner;
+    [SerializeField] private LevelHandler _levelHandler;
     
     private int _amountResourcesForCreateUnit = 3;
     private int _amountResourcesForCreateStation = 5;
@@ -39,9 +40,10 @@ public class Station : MonoBehaviour
             CanCreateUnit();
             CanCreateStation();
 
-            if (_stationSpawner.HaveSpawnPointStation)
+            if (_levelHandler.HaveSpawnPointStation)
             {
-                unit.BuildStation(_stationSpawner.GetSpawnPoint());
+                print("_levelHandler.HaveSpawnPointStation");
+                unit.BuildStation(_levelHandler.GetSpawnPoint());
             }
         }
     }
@@ -51,8 +53,8 @@ public class Station : MonoBehaviour
         if (_isModeSelectParentStation)
         {
             _stationPosition = transform.position;
-            _isModeSelectParentStation = false;
-            _stationSpawner.IsModeSelectSpawnPointStation = true;
+            _isModeSelectParentStation = false; 
+            _levelHandler.IsModeSelectSpawnPointStation = true;
             
             print($"_stationPosition = {_stationPosition}");
         }
