@@ -3,27 +3,24 @@ using UnityEngine;
 public class UnitSpawner : MonoBehaviour
 {
     [SerializeField] private Unit _unitPrefab;
-    
-    public int CountUnit = 3;
-    
-    private UnitCollection _unitCollection;
-    private Station _station;
+    [SerializeField] private Station _station;
+    [SerializeField] private StationWallet _stationWallet;
 
-    public void Initialize(UnitCollection unitCollection, Station station)
+    private void OnEnable()
     {
-        _unitCollection = unitCollection;
-        _station = station;
+        _stationWallet.SpawnUnit += OnSpawn;
     }
 
-    public void SpawnUnit()
+    private void OnDisable()
     {
-        Unit unit = Instantiate(_unitPrefab, _station.transform.position, Quaternion.identity);
-        _unitCollection.Add(unit, _station);
+        _stationWallet.SpawnUnit += OnSpawn;
+    }
 
+    private void OnSpawn()
+    {
+        Vector3 position = _station.transform.position;
+        Unit unit = Instantiate(_unitPrefab, position, Quaternion.identity);
         unit.transform.parent = gameObject.transform;
-        unit.SetStationPosition(_station.transform.position);
+        unit.SetStationPosition(position);
     }
-
-    public void AssginUnit(Station station, Unit unit) => 
-        _unitCollection.AssginUnit(station, unit);
 }

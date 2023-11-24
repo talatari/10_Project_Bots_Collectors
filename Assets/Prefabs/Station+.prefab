@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6595651907143301042}
   - component: {fileID: 771293562822512537}
   - component: {fileID: 8147909810463390044}
-  - component: {fileID: 726170920085429773}
+  - component: {fileID: 6733191445004286614}
+  - component: {fileID: 1306975336382974992}
   - component: {fileID: 4841784198080180718}
   - component: {fileID: 6703824559964086815}
   - component: {fileID: 8467890224724940372}
@@ -50,7 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitSpawner: {fileID: 8147909810463390044}
-  _stationSpawner: {fileID: 0}
+  _levelHandler: {fileID: 0}
+  _stationWallet: {fileID: 6733191445004286614}
+  _stationCollector: {fileID: 1306975336382974992}
+  _resourceScanner: {fileID: 0}
 --- !u!114 &8147909810463390044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,8 +68,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitPrefab: {fileID: 7336767844495426843, guid: f2a0b42636b144d7ab76090ea46dc932, type: 3}
-  CountUnit: 3
---- !u!114 &726170920085429773
+  _station: {fileID: 771293562822512537}
+  _stationWallet: {fileID: 6733191445004286614}
+--- !u!114 &6733191445004286614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +79,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086189490998539479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b13a5c037d9224736aafc99d36c04e0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8151cdef7ba9349e28ff64e0c27af109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stationCollector: {fileID: 1306975336382974992}
+--- !u!114 &1306975336382974992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086189490998539479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466cea47c17a74f5d9554053059282dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!33 &4841784198080180718

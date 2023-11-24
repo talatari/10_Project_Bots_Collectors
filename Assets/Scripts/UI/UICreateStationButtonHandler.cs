@@ -3,8 +3,10 @@ using UnityEngine.EventSystems;
 
 public class UICreateStationButtonHandler : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private Station _station;
+    [SerializeField] private StationWallet _stationWallet;
     
-    public void OnPointerDown(PointerEventData eventData) => 
-        _station.CreateStationHadle();
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        _stationWallet.CreateStationHadle();
+    }
 }

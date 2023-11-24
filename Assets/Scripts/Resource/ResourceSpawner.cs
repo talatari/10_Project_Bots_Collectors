@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,8 +10,9 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] private int _minDistance = 5;
     [SerializeField] private int _maxDistance = 48;
     [SerializeField] private Station _station;
+
+    public event Action<Resource> SpawnResource; 
     
-    private ResourceCollection _resourceCollection;
     private Coroutine _coroutineSpawnWithDelay;
     private Vector3 _stationPosition;
     private float _leftBorder;
@@ -31,6 +33,8 @@ public class ResourceSpawner : MonoBehaviour
         _rightBorder = _stationPosition.x + _minDistance;
         _downBorder = _stationPosition.z - _minDistance;
         _upBorder = _stationPosition.z + _minDistance;
+
+        StartSpawn();
     }
 
     private void OnDestroy()
@@ -39,17 +43,15 @@ public class ResourceSpawner : MonoBehaviour
             StopCoroutine(_coroutineSpawnWithDelay);
     }
     
-    public void Initialize(ResourceCollection resourceCollection) => 
-        _resourceCollection = resourceCollection;
-    
-    public void StartSpawn() => 
+    private void StartSpawn() => 
         _coroutineSpawnWithDelay = StartCoroutine(SpawnWithDelay());
 
     private void Spawn()
     {
         Resource resource = Instantiate(_resourcePrefab, GenerateSpawnPosition(), Quaternion.identity);
         resource.transform.parent = gameObject.transform;
-        _resourceCollection.Add(resource);
+        
+        SpawnResource?.Invoke(resource);
     }
 
     private Vector3 GenerateSpawnPosition()

@@ -1,45 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceScanner : MonoBehaviour
 {
-    private ResourceCollection _resourceCollection;
-    private UnitCollection _unitCollection;
-    private Station _station;
+    [SerializeField] private ResourceSpawner _resourceSpawner;
+    
+    private Queue<Resource> _resources = new ();
 
-    private void Start()
+    public bool HaveResource => _resources.Count > 0;
+    
+    private void OnEnable()
     {
-        if (_station is not null)
-            _station.UnitCollectorFree += Scanning;
+        _resourceSpawner.SpawnResource += OnAddResource;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (_station is not null)
-            _station.UnitCollectorFree -= Scanning;
+        _resourceSpawner.SpawnResource -= OnAddResource;
     }
 
-    public void Initialize(ResourceCollection resourceCollection, UnitCollection unitCollection, Station station)
+    public Resource GetResource()
     {
-        _resourceCollection = resourceCollection;
-        _unitCollection = unitCollection;
-        _station = station;
+        return _resources.Dequeue();
     }
 
-    private void Scanning()
+    private void OnAddResource(Resource resource)
     {
-        Resource resource = _resourceCollection.TryGetResource();
-        Unit unit = _unitCollection.TryGetFreeUnit();
-
-        if (resource is not null && unit is not null)
-        {
-            print("unit.CollectResource(resource);");
-            unit.CollectResource(resource);
-        }
-        else
-        {
-            print("_resourceCollection.Add(resource);");
-            _resourceCollection.Add(resource);
-        }
-            
+        _resources.Enqueue(resource);
     }
 }
