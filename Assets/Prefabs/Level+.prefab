@@ -114,9 +114,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 935666697495993766}
-  - component: {fileID: 2211250235491612973}
   - component: {fileID: 8321315219137865999}
-  - component: {fileID: 3753056051455331969}
+  - component: {fileID: 7373710506625243364}
   m_Layer: 0
   m_Name: Level+
   m_TagString: Untagged
@@ -141,22 +140,6 @@ Transform:
   - {fileID: 1454492846034662095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2211250235491612973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3640256150252351644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd46b5dc6302c4f08b33f7733847ef99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourceSpawner: {fileID: 8321315219137865999}
-  _resourceScanner: {fileID: 0}
-  _unitSpawner: {fileID: 0}
-  _station: {fileID: 0}
 --- !u!114 &8321315219137865999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +157,7 @@ MonoBehaviour:
   _minDistance: 5
   _maxDistance: 48
   _station: {fileID: 771293562822512537, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
---- !u!114 &3753056051455331969
+--- !u!114 &7373710506625243364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,11 +166,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3640256150252351644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c653eaaad0bea424b8c65d3984dc9c56, type: 3}
+  m_Script: {fileID: 11500000, guid: b13a5c037d9224736aafc99d36c04e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsModeSelectSpawnPointStation: 0
-  HaveSpawnPointStation: 0
+  _resourceSpawner: {fileID: 8321315219137865999}
 --- !u!1 &4045645386531462649
 GameObject:
   m_ObjectHideFlags: 0

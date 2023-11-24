@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class UICountResources : MonoBehaviour
 {
-    [SerializeField] private Station _station;
+    [SerializeField] private StationWallet stationWallet;
     [SerializeField] private TMP_Text _countResourcesText;
     [SerializeField] private GameObject _buttonCreateUnit;
     [SerializeField] private GameObject _buttonCreateStation;
 
     private string _resourcesText;
     
-    private void Start()
+    private void Awake()
     {
         _resourcesText = _countResourcesText.text;
         
@@ -19,24 +19,24 @@ public class UICountResources : MonoBehaviour
         
         OnChangeCountResources();
         
-        _station.CountResourcesUpdate += OnChangeCountResources;
-        _station.EnoughResourcesForUnit += OnActiveButtonCreateUnit;
-        _station.NotEnoughResourcesForUnit += OnInActiveButtonCreateUnit;
-        _station.EnoughResourcesForStation += OnActiveButtonCreateStation;
-        _station.NotEnoughResourcesForStation += OnInActiveButtonCreateStation;
+        stationWallet.CountResourcesUpdate += OnChangeCountResources;
+        stationWallet.EnoughResourcesForUnit += OnActiveButtonCreateUnit;
+        stationWallet.NotEnoughResourcesForUnit += OnInActiveButtonCreateUnit;
+        stationWallet.EnoughResourcesForStation += OnActiveButtonCreateStationWallet;
+        stationWallet.NotEnoughResourcesForStation += OnInActiveButtonCreateStationWallet;
     }
 
     private void OnDestroy()
     {
-        _station.CountResourcesUpdate -= OnChangeCountResources;
-        _station.EnoughResourcesForUnit -= OnActiveButtonCreateUnit;        
-        _station.NotEnoughResourcesForUnit += OnInActiveButtonCreateUnit;
-        _station.EnoughResourcesForStation += OnActiveButtonCreateStation;
-        _station.NotEnoughResourcesForStation += OnInActiveButtonCreateStation;
+        stationWallet.CountResourcesUpdate -= OnChangeCountResources;
+        stationWallet.EnoughResourcesForUnit -= OnActiveButtonCreateUnit;        
+        stationWallet.NotEnoughResourcesForUnit += OnInActiveButtonCreateUnit;
+        stationWallet.EnoughResourcesForStation += OnActiveButtonCreateStationWallet;
+        stationWallet.NotEnoughResourcesForStation += OnInActiveButtonCreateStationWallet;
     }
 
     private void OnChangeCountResources() => 
-        _countResourcesText.text = _resourcesText + _station.CountResources;
+        _countResourcesText.text = _resourcesText + stationWallet.CountResources;
 
     private void OnActiveButtonCreateUnit() => 
         _buttonCreateUnit.SetActive(true);
@@ -44,9 +44,9 @@ public class UICountResources : MonoBehaviour
     private void OnInActiveButtonCreateUnit() => 
         _buttonCreateUnit.SetActive(false);
     
-    private void OnActiveButtonCreateStation() => 
+    private void OnActiveButtonCreateStationWallet() => 
         _buttonCreateStation.SetActive(true);
     
-    private void OnInActiveButtonCreateStation() => 
+    private void OnInActiveButtonCreateStationWallet() => 
         _buttonCreateStation.SetActive(false);
 }

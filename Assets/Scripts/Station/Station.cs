@@ -1,50 +1,34 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Station : MonoBehaviour
 {
     [SerializeField] private UnitSpawner _unitSpawner;
-    [SerializeField] private StationSpawner _stationSpawner;
     [SerializeField] private LevelHandler _levelHandler;
+    [SerializeField] private StationWallet _stationWallet;
+    [SerializeField] private StationCollector _stationCollector;
+    [SerializeField] private ResourceScanner _resourceScanner;
     
-    private int _amountResourcesForCreateUnit = 3;
-    private int _amountResourcesForCreateStation = 5;
+    private List<Unit> _units;
     private bool _isModeSelectParentStation;
-    private Vector3 _stationPosition;
     private Vector3 _stationSpawnPosition;
 
-    public int CountResources { get; set; }
-
-    public event Action UnitCollectorFree;
-    public event Action CountResourcesUpdate;
-    public event Action EnoughResourcesForUnit;
-    public event Action NotEnoughResourcesForUnit;
-    public event Action EnoughResourcesForStation;
-    public event Action NotEnoughResourcesForStation;
-    
     private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out Unit unit))
         {
             if (unit.UnitCollector.HasResource == false)
             {
-                UnitCollectorFree?.Invoke();
+                if (_resourceScanner.HaveResource && unit.IsWork == false)
+                {
+                    unit.CollectResource(_resourceScanner.GetResource());
+                }
+                
                 return;
             }
-            
-            unit.UnitCollector.Resource.Destroy();
-            unit.SetFree();
-            
-            IncreaseCountResources();
-            
-            CanCreateUnit();
-            CanCreateStation();
 
-            if (_levelHandler.HaveSpawnPointStation)
-            {
-                print("_levelHandler.HaveSpawnPointStation");
-                unit.BuildStation(_levelHandler.GetSpawnPoint());
-            }
+            _stationCollector.Collect(unit);
         }
     }
     
@@ -52,73 +36,10 @@ public class Station : MonoBehaviour
     {
         if (_isModeSelectParentStation)
         {
-            _stationPosition = transform.position;
-            _isModeSelectParentStation = false; 
-            _levelHandler.IsModeSelectSpawnPointStation = true;
-            
-            print($"_stationPosition = {_stationPosition}");
+            _isModeSelectParentStation = false;
         }
     }
 
-    public void CreateUnitHadle()
-    {
-        if (HaveResourcesForCreateUnit())
-        {
-            CountResources -= _amountResourcesForCreateUnit;
-            CountResourcesUpdate?.Invoke();
-
-            CreateUnit();
-        }
-        
-        CanCreateUnit();
-        CanCreateStation();
-    }
-    
-    public void CreateStationHadle()
-    {
-        if (HaveResourcesForCreateStation())
-        {
-            CountResources -= _amountResourcesForCreateStation;
-            CountResourcesUpdate?.Invoke();
-
-            CreateStation();
-        }
-        
-        CanCreateUnit();
-        CanCreateStation();
-    }
-
-    private void IncreaseCountResources()
-    {
-        CountResources++;
-        CountResourcesUpdate?.Invoke();
-    }
-
-    private void CanCreateUnit()
-    {
-        if (HaveResourcesForCreateUnit())
-            EnoughResourcesForUnit?.Invoke();
-        else
-            NotEnoughResourcesForUnit?.Invoke();
-    }
-    
-    private void CanCreateStation()
-    {
-        if (HaveResourcesForCreateStation())
-            EnoughResourcesForStation?.Invoke();
-        else
-            NotEnoughResourcesForStation?.Invoke();
-    }
-
-    private bool HaveResourcesForCreateUnit() => 
-        CountResources - _amountResourcesForCreateUnit >= 0;
-    
-    private bool HaveResourcesForCreateStation() => 
-        CountResources - _amountResourcesForCreateStation >= 0;
-
-    private void CreateUnit() =>
-        _unitSpawner.SpawnUnit();
-
-    private void CreateStation() => 
+    public void CreateStation() => 
         _isModeSelectParentStation = true;
 }
