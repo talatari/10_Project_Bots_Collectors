@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6628559764829207989}
   - component: {fileID: 7142417681535666764}
   m_Layer: 5
-  m_Name: CreateStationButton+
+  m_Name: SpawnStationButton+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fe282170c0f409bb0f576c84db0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _station: {fileID: 0}
 --- !u!222 &7958074018161085015
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -283,7 +282,7 @@ GameObject:
   - component: {fileID: 8011553019491711476}
   - component: {fileID: 6661303094807737298}
   m_Layer: 5
-  m_Name: CreateUnitButton+
+  m_Name: SpawnUnitButton+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321,7 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081a1e06c4922449ca8bc43965ecf592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _station: {fileID: 0}
 --- !u!222 &7966869640420185135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -728,10 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d12d69105f124a71b6f5d48b3b4a09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _station: {fileID: 0}
   _countResourcesText: {fileID: 7756372560217322637}
-  _buttonCreateUnit: {fileID: 3122344468844939582}
-  _buttonCreateStation: {fileID: 2913492187297314243}
+  _buttonSpawnUnit: {fileID: 3122344468844939582}
+  _buttonSpawnStation: {fileID: 2913492187297314243}
 --- !u!223 &473145587359190832
 Canvas:
   m_ObjectHideFlags: 0

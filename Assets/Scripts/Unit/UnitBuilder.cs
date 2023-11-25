@@ -1,16 +1,21 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class UnitBuilder : MonoBehaviour
 {
+    [SerializeField] private Station _stationPrefab;
+    
+    private Unit _unit;
     private UnitMover _unitMover;
-    private Station _stationPrefab;
     private Coroutine _coroutineWaitUnitForBuild;
+
+    public event Action<Station, Unit> SpawnedStation; 
 
     private void Awake()
     {
+        _unit = GetComponent<Unit>();
         _unitMover = GetComponent<UnitMover>();
-        _stationPrefab = FindObjectOfType<Station>();
     }
 
     private void OnDestroy()
@@ -31,6 +36,10 @@ public class UnitBuilder : MonoBehaviour
             yield return null;
     
         Station newStation = Instantiate(_stationPrefab, buildPosition, Quaternion.identity);
-        gameObject.transform.parent = newStation.transform;
+        transform.parent = newStation.transform;
+        
+        SpawnedStation?.Invoke(newStation, _unit);
+        
+        _unit.SetFree();
     }
 }

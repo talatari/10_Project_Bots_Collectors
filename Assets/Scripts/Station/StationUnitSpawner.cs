@@ -5,18 +5,18 @@ public class StationUnitSpawner : MonoBehaviour
 {
     [SerializeField] private Unit _unitPrefab;
     
-    private Vector3 _stationPosition;
+    private Station _station;
 
     public event Action<Unit> SpawnedUnit; 
 
-    public void SetStationPosition(Vector3 position) => 
-        _stationPosition = position;
+    public void SetParentStation(Station station) => 
+        _station = station;
 
     public void Spaw()
     {
-        Unit unit = Instantiate(_unitPrefab, _stationPosition, Quaternion.identity);
+        Unit unit = Instantiate(_unitPrefab, _station.transform.position, Quaternion.identity);
         unit.transform.parent = gameObject.transform;
-        unit.SetStationPosition(_stationPosition);
+        unit.SetParentStation(_station);
         
         SpawnedUnit?.Invoke(unit);
     }

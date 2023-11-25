@@ -4,8 +4,8 @@ public class LevelRayCaster : MonoBehaviour
 {
     private Camera _camera;
     private Vector3 _spawnPoint;
-    private Station _station;
     
+    public bool HaveSpawnPoint { get; private set; }
     
     private void Start() => 
         _camera = Camera.main;
@@ -18,18 +18,13 @@ public class LevelRayCaster : MonoBehaviour
     
         _spawnPoint.x = direction.x * normalize;
         _spawnPoint.z = direction.z * normalize;
-        
-        print("Запомнили точку спавна новой базы в LevelRayCaster");
-        print(_spawnPoint);
-    }
 
-    public void SetStation(Station station)
-    {
-        _station = station;
-        print("Передали родительскую базу в LevelRayCaster");
-        print(_station.transform.position);
+        HaveSpawnPoint = true;
     }
     
-    public Vector3 GetSpawnPoint() => 
-        _spawnPoint;
+    public Vector3 GetSpawnPoint()
+    {
+        HaveSpawnPoint = false;
+        return _spawnPoint;
+    }
 }

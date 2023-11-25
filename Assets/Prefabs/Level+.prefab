@@ -156,7 +156,6 @@ MonoBehaviour:
   _delaySpawn: 1
   _minDistance: 5
   _maxDistance: 48
-  _station: {fileID: 771293562822512537, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
 --- !u!114 &7373710506625243364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13a5c037d9224736aafc99d36c04e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceSpawner: {fileID: 8321315219137865999}
 --- !u!1 &4045645386531462649
 GameObject:
   m_ObjectHideFlags: 0
