@@ -29,8 +29,13 @@ public class ResourceScanner : MonoBehaviour
             StopCoroutine(_coroutineHaveResource);
     }
 
-    public Resource GetResource() => 
-        _resources.Dequeue();
+    public Resource GetResource()
+    {
+        if (_resources.Count > 0)
+            return _resources.Dequeue();
+
+        return null;
+    }
 
     private void OnAddResource(Resource resource) => 
         _resources.Enqueue(resource);

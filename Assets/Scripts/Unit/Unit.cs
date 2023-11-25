@@ -5,7 +5,7 @@ public class Unit : MonoBehaviour
     private UnitMover _unitMover;
     private UnitCollector _unitCollector;
     private UnitBuilder _unitBuilder;
-    private Vector3 _stationPosition;
+    private Station _station;
 
     public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
@@ -20,11 +20,13 @@ public class Unit : MonoBehaviour
     private void OnEnable()
     {
         _unitCollector.ResourceCollected += OnResourceCollected;
+        _unitBuilder.SpawnedStation += OnReConnectStation;
     }
 
     private void OnDisable()
     {
         _unitCollector.ResourceCollected -= OnResourceCollected;
+        _unitBuilder.SpawnedStation -= OnReConnectStation;
     }
 
     public void CollectResource(Resource resource)
@@ -46,9 +48,16 @@ public class Unit : MonoBehaviour
         _unitCollector.ClearResource();
     }
 
-    public void SetStationPosition(Vector3 stationPosition) => 
-        _stationPosition = stationPosition;
+    public void SetParentStation(Station station) => 
+        _station = station;
 
     private void OnResourceCollected() => 
-        _unitMover.SetTarget(_stationPosition);
+        _unitMover.SetTarget(_station.transform.position);
+
+    private void OnReConnectStation(Station newStation, Unit unit)
+    {
+        _station.RemoveUnit(unit);
+        newStation.OnAddUnit(unit);
+        _station = newStation;
+    }
 }
