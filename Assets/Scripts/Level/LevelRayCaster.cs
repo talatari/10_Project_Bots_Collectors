@@ -10,6 +10,7 @@ public class LevelRayCaster : MonoBehaviour
     private void Start() => 
         _camera = Camera.main;
     
+
     public void OnMouseDown()
     {
         int normalize = 100;

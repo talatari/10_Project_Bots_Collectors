@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -7,6 +8,8 @@ public class Unit : MonoBehaviour
     private UnitBuilder _unitBuilder;
     private Station _station;
 
+    public event Action UnitFree;
+    
     public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
     
@@ -44,7 +47,7 @@ public class Unit : MonoBehaviour
 
     public void SetFree()
     {
-        IsWork = false;
+        UnitFree?.Invoke();
         _unitCollector.ClearResource();
     }
 
@@ -57,7 +60,7 @@ public class Unit : MonoBehaviour
     private void OnReConnectStation(Station newStation, Unit unit)
     {
         _station.RemoveUnit(unit);
-        newStation.OnAddUnit(unit);
+        newStation.AddUnit(unit);
         _station = newStation;
     }
 }
