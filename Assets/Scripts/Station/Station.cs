@@ -4,110 +4,90 @@ using UnityEngine;
 public class Station : MonoBehaviour
 {
     [SerializeField] private Material[] _materials;
+    [SerializeField] private int _maxCountStation = 10;
     
     private List<Unit> _units = new();
     private Queue<Unit> _freeUnits = new();
+    
     private StationUnitSpawner _stationUnitSpawner;
-    private ResourceScanner _resourceScanner;
+    private StationResourceScanner _stationResourceScanner;
     private StationWallet _stationWallet;
     private LevelRayCaster _levelRayCaster;
     private UnitBuilder _unitBuilder;
+    
     private MeshRenderer _meshRenderer;
     private bool _isModeBuildStation;
     private int _inActiveMaterial = 0;
-    private int _activeMaterial = 1;
+    // private int _activeMaterial = 1;
 
     private void Awake()
     {
         _stationUnitSpawner = GetComponent<StationUnitSpawner>();
         _stationUnitSpawner.SetParentStation(this);
-        _resourceScanner = FindObjectOfType<ResourceScanner>();
+        
+        _stationResourceScanner = GetComponent<StationResourceScanner>();
         _stationWallet = GetComponent<StationWallet>();
         _levelRayCaster = FindObjectOfType<LevelRayCaster>();
+        
         _meshRenderer = GetComponent<MeshRenderer>();
         _meshRenderer.material = _materials[_inActiveMaterial];
     }
 
     private void OnEnable()
     {
-        _stationUnitSpawner.SpawnedUnit += AddUnit;
-        _resourceScanner.HaveResourse += OnFreeUnitGoWork;
+        _stationWallet.EnoughResourcesForUnit += OnSpawUnit;
+        _stationUnitSpawner.SpawnedUnit += OnAddUnit;
+        _stationResourceScanner.HaveResourse += OnTryCollectResource;
     }
 
-    private void OnMouseDown()
-    {
-        if (_isModeBuildStation)
-        {
-            _meshRenderer.material = _materials[_activeMaterial];
-            _isModeBuildStation = false;
-        }
-        else
-        {
-            _meshRenderer.material = _materials[_inActiveMaterial];
-            _isModeBuildStation = true;
-        }
-    }
-    
     private void OnDisable()
     {
-        _stationUnitSpawner.SpawnedUnit -= AddUnit;
-        _resourceScanner.HaveResourse -= OnFreeUnitGoWork;
+        _stationWallet.EnoughResourcesForUnit -= OnSpawUnit;
+        _stationUnitSpawner.SpawnedUnit -= OnAddUnit;
+        _stationResourceScanner.HaveResourse -= OnTryCollectResource;
     }
 
-    public void SpawnUnitHadle()
+    private void OnSpawUnit()
     {
-        _stationUnitSpawner.Spaw();
-        _stationWallet.DecreaseResourcesForUnit();
+        if (_units.Count < _maxCountStation)
+        {
+            _stationUnitSpawner.Spaw();
+            _stationWallet.DecreaseResourcesForUnit();
+        }
     }
 
-    public void SpawnStationHadle() => 
-        _isModeBuildStation = true;
-
-    public void AddUnit(Unit unit)
+    public void OnAddUnit(Unit unit)
     {
-        _units.Add(unit);
-        _freeUnits.Enqueue(unit);
         unit.UnitFree += OnAddFreeUnitInQueue;
+        _units.Add(unit);
+
+        if (_freeUnits.Contains(unit) == false)
+            _freeUnits.Enqueue(unit);
     }
 
     public void RemoveUnit(Unit unit)
     {
-        _units.Remove(unit);
-        _freeUnits.Dequeue(unit);
         unit.UnitFree -= OnAddFreeUnitInQueue;
-    }
-
-    private void OnAddFreeUnitInQueue()
-    {
-        
+        _units.Remove(unit);
     }
     
-    private Unit TryGetFreeUnit()
+    private void OnAddFreeUnitInQueue(Unit unit)
     {
-        foreach (Unit unit in _units)
-            if (unit.IsWork == false)
-                return unit;
-
-        return null;
+        if (_freeUnits.Contains(unit) == false)
+            _freeUnits.Enqueue(unit);
     }
 
-    private void OnFreeUnitGoWork()
+    private void OnTryCollectResource()
     {
-        Unit freeUnit = TryGetFreeUnit();
-        
-        if (freeUnit is null)
-            return;
-        
-        if (_isModeBuildStation && _levelRayCaster.HaveSpawnPoint)
+        while (_freeUnits.Count != 0)
         {
-            freeUnit.SpawnStation(_levelRayCaster.GetSpawnPoint());
-            _stationWallet.DecreaseResourcesForStation();
-            return;
-        }
+            Resource resource = _stationResourceScanner.GetResource();
 
-        Resource resource = _resourceScanner.GetResource();
-        
-        if (resource is not null)
+            if (resource is null)
+                return;
+
+            Unit freeUnit = _freeUnits.Dequeue();
             freeUnit.CollectResource(resource);
+        }
     }
 }

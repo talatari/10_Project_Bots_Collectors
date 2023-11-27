@@ -8,9 +8,8 @@ public class Unit : MonoBehaviour
     private UnitBuilder _unitBuilder;
     private Station _station;
 
-    public event Action UnitFree;
+    public event Action<Unit> UnitFree;
     
-    public bool IsWork { get; private set; }
     public UnitCollector UnitCollector => _unitCollector;
     
     private void Awake()
@@ -36,18 +35,11 @@ public class Unit : MonoBehaviour
     {
         _unitMover.SetTarget(resource.transform.position);
         _unitCollector.SetTargetResource(resource);
-        IsWork = true;
-    }
-
-    public void SpawnStation(Vector3 buildPosition)
-    {
-        _unitBuilder.BuildStation(buildPosition);
-        IsWork = true;
     }
 
     public void SetFree()
     {
-        UnitFree?.Invoke();
+        UnitFree?.Invoke(this);
         _unitCollector.ClearResource();
     }
 
@@ -60,7 +52,7 @@ public class Unit : MonoBehaviour
     private void OnReConnectStation(Station newStation, Unit unit)
     {
         _station.RemoveUnit(unit);
-        newStation.AddUnit(unit);
+        newStation.OnAddUnit(unit);
         _station = newStation;
     }
 }

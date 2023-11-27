@@ -3,19 +3,17 @@ using UnityEngine;
 
 public class StationWallet : MonoBehaviour
 {
+    [SerializeField] private int _countResources;
+    
     private StationResourceCollector _stationResourceCollector;
     private int _amountResourcesForCreateUnit = 3;
     private int _amountResourcesForCreateStation = 5;
 
-    public int CountResources { get; set; } = 11;
+    public int CountResources { get; set; } = 3;
     
     public event Action CountResourcesUpdate;
-    
     public event Action EnoughResourcesForUnit;
-    public event Action NotEnoughResourcesForUnit;
-    
     public event Action EnoughResourcesForStation;
-    public event Action NotEnoughResourcesForStation;
 
     private void Awake() => 
         _stationResourceCollector = GetComponent<StationResourceCollector>();
@@ -23,7 +21,8 @@ public class StationWallet : MonoBehaviour
     private void Start()
     {
         CanSpawnUnit();
-        CanSpawnStation();
+        // CanSpawnStation();
+        _countResources = CountResources;
     } 
 
     private void OnEnable() => 
@@ -59,26 +58,27 @@ public class StationWallet : MonoBehaviour
     private void OnIncreaseCountStationResources()
     {
         CountResources++;
+        _countResources = CountResources;
+
         CountResourcesUpdate?.Invoke();
         
         CanSpawnUnit();
-        CanSpawnStation();
+        //CanSpawnStation();
     }
 
     private void CanSpawnUnit()
     {
         if (HaveResourcesForCreateUnit())
+        {
             EnoughResourcesForUnit?.Invoke();
-        else
-            NotEnoughResourcesForUnit?.Invoke();
+        }
+            
     }
     
     private void CanSpawnStation()
     {
         if (HaveResourcesForCreateStation())
             EnoughResourcesForStation?.Invoke();
-        else
-            NotEnoughResourcesForStation?.Invoke();
     }
     
     private bool HaveResourcesForCreateUnit() => 
