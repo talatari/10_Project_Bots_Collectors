@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class LevelRayCaster : MonoBehaviour
 {
+    private LevelFlager _levelFlager;
     private Camera _camera;
-    private Vector3 _point;
-    private string _name;
-    private Vector3 _position;
+    
+    public Vector3 Point { get; private set; }
+    public string Name { get; private set; }
+    public Vector3 Position { get; private set; }
 
-    public Vector3 Point => _point;
-    public string Name => _name;
-    public Vector3 Position => _position;
+    private void Awake() => 
+        _levelFlager = FindObjectOfType<LevelFlager>();
 
     private void Start() => 
         _camera = Camera.main;
-
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -24,13 +25,15 @@ public class LevelRayCaster : MonoBehaviour
     {
         if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit raycastHit))
         {
-            _point = raycastHit.point;
-            _name = raycastHit.collider.gameObject.name;
-            _point = raycastHit.transform.position;
+            Point = raycastHit.point;
+            Name = raycastHit.collider.gameObject.name;
+            Position = raycastHit.transform.position;
 
-            // print($"raycastHit.point = {raycastHit.point}");
-            // print($"raycastHit.collider.gameObject.name = {raycastHit.collider.gameObject.name}");
-            // print($"raycastHit.transform.position = {raycastHit.transform.position}");
+            if (raycastHit.collider.gameObject.TryGetComponent(out Plane plane))
+                _levelFlager.SpawFlag(Point);
+
+            if (raycastHit.collider.gameObject.TryGetComponent(out Station station))
+                _levelFlager.SetStation(station);
         }
     }
 }
