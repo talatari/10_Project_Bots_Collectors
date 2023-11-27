@@ -15,6 +15,7 @@ public class StationUnitSpawner : MonoBehaviour
     public void Spaw()
     {
         Unit unit = Instantiate(_unitPrefab, _station.transform.position, Quaternion.identity);
+        unit.name = "Unit" + unit.GetInstanceID();
         unit.transform.parent = gameObject.transform;
         unit.SetParentStation(_station);
         

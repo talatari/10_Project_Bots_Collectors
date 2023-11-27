@@ -18,7 +18,9 @@ public class LevelFlager : MonoBehaviour
         _spawnFlagPosition = spawnFlagPosition;
 
         if (_station is not null)
+        {
             _station.BuildStation(_spawnFlagPosition);
+        }
     }
 
     public void SetStation(Station station)
@@ -26,6 +28,8 @@ public class LevelFlager : MonoBehaviour
         _station = station;
 
         if (_currentFlag is not null)
+        {
             _station.BuildStation(_spawnFlagPosition);
+        }
     }
 }

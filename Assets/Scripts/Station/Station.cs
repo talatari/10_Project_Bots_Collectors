@@ -18,6 +18,7 @@ public class Station : MonoBehaviour
     private MeshRenderer _meshRenderer;
     // private int _inActiveMaterial = 0;
     // private int _activeMaterial = 1;
+    private Vector3 _buildStationPosition;
 
     private void Awake()
     {
@@ -36,14 +37,14 @@ public class Station : MonoBehaviour
     {
         _stationWallet.EnoughResourcesForUnit += OnSpawUnit;
         _stationUnitSpawner.SpawnedUnit += OnAddUnit;
-        _stationResourceScanner.HaveResourse += OnTryCollectResource;
+        _stationResourceScanner.HaveResourse += OnTryFreeUnitGoWork;
     }
 
     private void OnDisable()
     {
         _stationWallet.EnoughResourcesForUnit -= OnSpawUnit;
         _stationUnitSpawner.SpawnedUnit -= OnAddUnit;
-        _stationResourceScanner.HaveResourse -= OnTryCollectResource;
+        _stationResourceScanner.HaveResourse -= OnTryFreeUnitGoWork;
     }
 
     public void OnAddUnit(Unit unit)
@@ -61,10 +62,8 @@ public class Station : MonoBehaviour
         _units.Remove(unit);
     }
 
-    public void BuildStation(Vector3 buildStationPosition)
-    {
-        print(buildStationPosition);
-    }
+    public void BuildStation(Vector3 buildStationPosition) => 
+        _buildStationPosition = buildStationPosition;
 
     private void OnSpawUnit()
     {
@@ -81,7 +80,34 @@ public class Station : MonoBehaviour
             _freeUnits.Enqueue(unit);
     }
 
-    private void OnTryCollectResource()
+    private void OnTryFreeUnitGoWork()
+    {
+        TryBuildStation();
+
+        TryCollectResource();
+    }
+
+    private void TryBuildStation()
+    {
+        if (_buildStationPosition != Vector3.zero && _freeUnits.Count > 0)
+        {
+            Unit freeUnit = _freeUnits.Dequeue();
+
+            if (freeUnit.TryGetComponent(out UnitBuilder unitBuilder))
+            {
+                unitBuilder.BuildStation(_buildStationPosition);
+                _buildStationPosition = new Vector3();
+                // TODO: сделать проверку на то хватает ли ресурсов, поднять выше
+                _stationWallet.DecreaseResourcesForStation();
+            }
+            else
+            {
+                _freeUnits.Enqueue(freeUnit);
+            }
+        }
+    }
+
+    private void TryCollectResource()
     {
         while (_freeUnits.Count != 0)
         {
