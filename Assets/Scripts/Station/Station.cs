@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Station : MonoBehaviour
 {
-    [SerializeField] private Material[] _materials;
+    [SerializeField] public Material[] Materials;
     [SerializeField] private int _maxCountStation = 10;
     
     private List<Unit> _units = new();
@@ -12,11 +12,11 @@ public class Station : MonoBehaviour
     private StationUnitSpawner _stationUnitSpawner;
     private StationResourceScanner _stationResourceScanner;
     private StationWallet _stationWallet;
-    private LevelRayCaster _levelRayCaster;
     private UnitBuilder _unitBuilder;
-    
+    private LevelRayCaster _levelRayCaster;
+
     private MeshRenderer _meshRenderer;
-    private int _inActiveMaterial = 0;
+    // private int _inActiveMaterial = 0;
     // private int _activeMaterial = 1;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class Station : MonoBehaviour
         _levelRayCaster = FindObjectOfType<LevelRayCaster>();
         
         _meshRenderer = GetComponent<MeshRenderer>();
-        _meshRenderer.material = _materials[_inActiveMaterial];
+        // _meshRenderer.material = Materials[_inActiveMaterial];
     }
 
     private void OnEnable()
@@ -46,15 +46,6 @@ public class Station : MonoBehaviour
         _stationResourceScanner.HaveResourse -= OnTryCollectResource;
     }
 
-    private void OnSpawUnit()
-    {
-        if (_units.Count < _maxCountStation)
-        {
-            _stationUnitSpawner.Spaw();
-            _stationWallet.DecreaseResourcesForUnit();
-        }
-    }
-
     public void OnAddUnit(Unit unit)
     {
         unit.UnitFree += OnAddFreeUnitInQueue;
@@ -69,7 +60,21 @@ public class Station : MonoBehaviour
         unit.UnitFree -= OnAddFreeUnitInQueue;
         _units.Remove(unit);
     }
-    
+
+    public void BuildStation(Vector3 buildStationPosition)
+    {
+        print(buildStationPosition);
+    }
+
+    private void OnSpawUnit()
+    {
+        if (_units.Count < _maxCountStation)
+        {
+            _stationUnitSpawner.Spaw();
+            _stationWallet.DecreaseResourcesForUnit();
+        }
+    }
+
     private void OnAddFreeUnitInQueue(Unit unit)
     {
         if (_freeUnits.Contains(unit) == false)

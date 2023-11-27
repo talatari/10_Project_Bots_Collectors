@@ -51,9 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f1b35d3dce0460fb14035b9e78d360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materials:
+  Materials:
   - {fileID: 2100000, guid: 7ba9c03ccb849c3448f936156d369f55, type: 2}
   - {fileID: 2100000, guid: 8d29ba593d572734e879dc0ef6052dab, type: 2}
+  _maxCountStation: 10
 --- !u!114 &8147909810463390044
 MonoBehaviour:
   m_ObjectHideFlags: 0
