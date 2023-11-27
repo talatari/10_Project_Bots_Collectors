@@ -285,8 +285,9 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Main Camera+
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,6 +367,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fac9390e010d42128bacee1d2fa6e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769021596
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,10 +498,6 @@ PrefabInstance:
     - target: {fileID: 3640256150252351644, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
       propertyPath: m_Name
       value: Level+
-      objectReference: {fileID: 0}
-    - target: {fileID: 8321315219137865999, guid: 4157d3f559e8f4cd098caf8b96593acc, type: 3}
-      propertyPath: _delaySpawn
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

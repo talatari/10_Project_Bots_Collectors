@@ -16,7 +16,6 @@ public class Station : MonoBehaviour
     private UnitBuilder _unitBuilder;
     
     private MeshRenderer _meshRenderer;
-    private bool _isModeBuildStation;
     private int _inActiveMaterial = 0;
     // private int _activeMaterial = 1;
 
