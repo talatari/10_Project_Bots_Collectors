@@ -9,9 +9,8 @@ public class StationWallet : MonoBehaviour
     private int _amountResourcesForCreateUnit = 3;
     private int _amountResourcesForCreateStation = 5;
 
-    public int CountResources { get; set; } = 6;
+    public int CountResources { get; set; }
     
-    public event Action CountResourcesUpdate;
     public event Action EnoughResourcesForUnit;
     public event Action EnoughResourcesForStation;
 
@@ -20,9 +19,8 @@ public class StationWallet : MonoBehaviour
 
     private void Start()
     {
+        CountResources = _countResources;
         CanSpawnUnit();
-        CanSpawnStation();
-        _countResources = CountResources;
     } 
 
     private void OnEnable() => 
@@ -33,48 +31,32 @@ public class StationWallet : MonoBehaviour
 
     public void DecreaseResourcesForUnit()
     {
-        if (HaveResourcesForCreateUnit())
-        {
-            CountResources -= _amountResourcesForCreateUnit;
-            _countResources = CountResources;
-            CountResourcesUpdate?.Invoke();
-        }
-        
-        CanSpawnUnit();
-        CanSpawnStation();
+        CountResources -= _amountResourcesForCreateUnit;
+        _countResources = CountResources;
     }
     
     public void DecreaseResourcesForStation()
     {
-        if (HaveResourcesForCreateStation())
-        {
-            CountResources -= _amountResourcesForCreateStation;
-            _countResources = CountResources;
-            CountResourcesUpdate?.Invoke();
-        }
-        
-        CanSpawnUnit();
-        CanSpawnStation();
+        CountResources -= _amountResourcesForCreateStation;
+        _countResources = CountResources;
     }
 
     private void OnIncreaseCountStationResources()
     {
         CountResources++;
         _countResources = CountResources;
-
-        CountResourcesUpdate?.Invoke();
         
+        CanSpawnStation();
         CanSpawnUnit();
-        //CanSpawnStation();
     }
 
-    private void CanSpawnUnit()
+    public void CanSpawnUnit()
     {
         if (HaveResourcesForCreateUnit())
             EnoughResourcesForUnit?.Invoke();
     }
     
-    private void CanSpawnStation()
+    public void CanSpawnStation()
     {
         if (HaveResourcesForCreateStation())
             EnoughResourcesForStation?.Invoke();

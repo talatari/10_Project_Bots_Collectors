@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Station+
       objectReference: {fileID: 0}
+    - target: {fileID: 5264231027490501345, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
+      propertyPath: _countResources
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6595651907143301042, guid: 76b4f09ae64a4445e9110cab1b163f69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25
