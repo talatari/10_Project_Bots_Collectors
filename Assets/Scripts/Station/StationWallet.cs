@@ -26,16 +26,17 @@ public class StationWallet : MonoBehaviour
     } 
 
     private void OnEnable() => 
-        _stationResourceCollector.ResourceCollected += OnIncreaseCountStationResources;
+        _stationResourceCollector.StationResourceCollected += OnIncreaseCountStationResources;
 
     private void OnDisable() => 
-        _stationResourceCollector.ResourceCollected -= OnIncreaseCountStationResources;
+        _stationResourceCollector.StationResourceCollected -= OnIncreaseCountStationResources;
 
     public void DecreaseResourcesForUnit()
     {
         if (HaveResourcesForCreateUnit())
         {
             CountResources -= _amountResourcesForCreateUnit;
+            _countResources = CountResources;
             CountResourcesUpdate?.Invoke();
         }
         
@@ -48,6 +49,7 @@ public class StationWallet : MonoBehaviour
         if (HaveResourcesForCreateStation())
         {
             CountResources -= _amountResourcesForCreateStation;
+            _countResources = CountResources;
             CountResourcesUpdate?.Invoke();
         }
         
@@ -69,9 +71,7 @@ public class StationWallet : MonoBehaviour
     private void CanSpawnUnit()
     {
         if (HaveResourcesForCreateUnit())
-        {
             EnoughResourcesForUnit?.Invoke();
-        }
     }
     
     private void CanSpawnStation()

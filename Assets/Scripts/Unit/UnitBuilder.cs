@@ -39,7 +39,5 @@ public class UnitBuilder : MonoBehaviour
         transform.parent = newStation.transform;
         
         SpawnedStation?.Invoke(newStation, _unit);
-        
-        // _unit.SetFree();
     }
 }

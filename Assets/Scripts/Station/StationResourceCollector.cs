@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StationResourceCollector : MonoBehaviour
 {
-    public event Action ResourceCollected;
+    public event Action StationResourceCollected;
 
     private void OnTriggerStay(Collider other)
     {
@@ -15,8 +15,9 @@ public class StationResourceCollector : MonoBehaviour
     private void Collect(Unit unit)
     {
         unit.UnitCollector.Resource.Destroy();
+        unit.UnitCollector.ClearResource();
         unit.SetFree();
         
-        ResourceCollected?.Invoke();
+        StationResourceCollected?.Invoke();
     }
 }

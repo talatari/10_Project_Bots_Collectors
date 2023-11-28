@@ -10,7 +10,7 @@ public class StationResourceScanner : MonoBehaviour
     public event Action HaveResourse;
 
     private void Awake() => 
-        _resourceSpawner = FindObjectOfType<ResourceSpawner>();
+        _resourceSpawner = GetComponent<ResourceSpawner>();
 
     private void OnEnable() =>
         _resourceSpawner.SpawnedResource += OnAddResource;
@@ -18,12 +18,16 @@ public class StationResourceScanner : MonoBehaviour
     private void OnDisable() => 
         _resourceSpawner.SpawnedResource -= OnAddResource;
 
-    public Resource GetResource()
+    public bool TryGetResource(out Resource resource)
     {
         if (_resources.Count > 0)
-            return _resources.Dequeue();
+        {
+            resource = _resources.Dequeue();
+            return true;
+        }
 
-        return null;
+        resource = null;
+        return false;
     }
     
     private void OnAddResource(Resource resource)

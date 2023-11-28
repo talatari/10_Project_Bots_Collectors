@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class Plane : MonoBehaviour
-{
-
-}
+public class Plane : MonoBehaviour { }
