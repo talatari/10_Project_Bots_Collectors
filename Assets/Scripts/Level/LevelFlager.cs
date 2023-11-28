@@ -63,8 +63,12 @@ public class LevelFlager : MonoBehaviour
 
     public void SetUnitBuilder(Unit unit)
     {
-        _currentFlag.SetUnitBuilder(unit);
+        if (_currentFlag is not null)
+        {
+            _currentFlag.SetUnitBuilder(unit);
+            _currentFlag = null;
+        }
+        
         _currentStation = null;
-        _currentFlag = null;
     }
 }
