@@ -21,36 +21,29 @@ public class Unit : MonoBehaviour
 
     private void OnEnable()
     {
-        _unitCollector.ResourceCollected += OnResourceCollected;
+        _unitCollector.UnitResourceCollected += OnUnitResourceCollected;
         _unitBuilder.SpawnedStation += OnReConnectStation;
     }
 
     private void OnDisable()
     {
-        _unitCollector.ResourceCollected -= OnResourceCollected;
+        _unitCollector.UnitResourceCollected -= OnUnitResourceCollected;
         _unitBuilder.SpawnedStation -= OnReConnectStation;
     }
 
     public void CollectResource(Resource resource)
     {
-        if (resource is not null)
-        {
-            resource.Units++;
-            _unitMover.SetTarget(resource.transform.position);
-            _unitCollector.SetTargetResource(resource);
-        }
+        _unitMover.SetTarget(resource.transform.position);
+        _unitCollector.SetTargetResource(resource);
     }
 
-    public void SetFree()
-    {
+    public void SetFree() => 
         UnitFree?.Invoke(this);
-        _unitCollector.ClearResource();
-    }
 
     public void SetParentStation(Station station) => 
         _parentStation = station;
 
-    private void OnResourceCollected() => 
+    private void OnUnitResourceCollected() => 
         _unitMover.SetTarget(_parentStation.transform.position);
 
     private void OnReConnectStation(Station newStation, Unit unit)
