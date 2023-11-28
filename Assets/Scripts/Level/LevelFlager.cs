@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelFlager : MonoBehaviour
@@ -7,7 +8,8 @@ public class LevelFlager : MonoBehaviour
     private LevelRayCaster _levelRayCaster;
     private Vector3 _spawnFlagPosition;
     private Flag _currentFlag;
-    private Station _station;
+    private Station _currentStation;
+    private List<Station> _stations = new ();
     
     private void Awake() => 
         _levelRayCaster = FindObjectOfType<LevelRayCaster>();
@@ -33,20 +35,36 @@ public class LevelFlager : MonoBehaviour
         _currentFlag = newFlag;
         _spawnFlagPosition = spawnFlagPosition;
 
-        if (_station is not null)
-            _station.BuildStation(_spawnFlagPosition);
+        if (_currentStation is not null)
+            _currentStation.BuildStation(_spawnFlagPosition);
     }
 
     public void OnSelectStation(Station station)
     {
-        _station = station;
+        _currentStation = station;
+        
+        if (_stations.Contains(station) == false)
+            _stations.Add(station);
+
+        foreach (Station _station in _stations)
+        {
+            if (_station == _currentStation)
+                if (_station.IsActive())
+                    _station.SetInActive();
+                else 
+                    _station.SetActive();
+            else
+                _station.SetInActive();
+        }
 
         if (_currentFlag is not null)
-            _station.BuildStation(_spawnFlagPosition);
+            _currentStation.BuildStation(_spawnFlagPosition);
     }
 
     public void SetUnitBuilder(Unit unit)
     {
         _currentFlag.SetUnitBuilder(unit);
+        _currentStation = null;
+        _currentFlag = null;
     }
 }
