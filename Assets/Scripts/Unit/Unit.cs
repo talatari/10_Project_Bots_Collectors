@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     private UnitMover _unitMover;
     private UnitCollector _unitCollector;
     private UnitBuilder _unitBuilder;
-    private Station _station;
+    private Station _parentStation;
 
     public event Action<Unit> UnitFree;
     
@@ -33,8 +33,12 @@ public class Unit : MonoBehaviour
 
     public void CollectResource(Resource resource)
     {
-        _unitMover.SetTarget(resource.transform.position);
-        _unitCollector.SetTargetResource(resource);
+        if (resource is not null)
+        {
+            resource.Units++;
+            _unitMover.SetTarget(resource.transform.position);
+            _unitCollector.SetTargetResource(resource);
+        }
     }
 
     public void SetFree()
@@ -44,15 +48,15 @@ public class Unit : MonoBehaviour
     }
 
     public void SetParentStation(Station station) => 
-        _station = station;
+        _parentStation = station;
 
     private void OnResourceCollected() => 
-        _unitMover.SetTarget(_station.transform.position);
+        _unitMover.SetTarget(_parentStation.transform.position);
 
     private void OnReConnectStation(Station newStation, Unit unit)
     {
-        _station.RemoveUnit(unit);
+        _parentStation.RemoveUnit(unit);
         newStation.OnAddUnit(unit);
-        _station = newStation;
+        _parentStation = newStation;
     }
 }

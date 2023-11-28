@@ -34,12 +34,12 @@ public class UnitBuilder : MonoBehaviour
     {
         while (transform.position != buildPosition)
             yield return null;
-    
+        
         Station newStation = Instantiate(_stationPrefab, buildPosition, Quaternion.identity);
         transform.parent = newStation.transform;
         
         SpawnedStation?.Invoke(newStation, _unit);
         
-        _unit.SetFree();
+        // _unit.SetFree();
     }
 }

@@ -9,7 +9,7 @@ public class StationWallet : MonoBehaviour
     private int _amountResourcesForCreateUnit = 3;
     private int _amountResourcesForCreateStation = 5;
 
-    public int CountResources { get; set; } = 3;
+    public int CountResources { get; set; } = 6;
     
     public event Action CountResourcesUpdate;
     public event Action EnoughResourcesForUnit;
@@ -21,7 +21,7 @@ public class StationWallet : MonoBehaviour
     private void Start()
     {
         CanSpawnUnit();
-        // CanSpawnStation();
+        CanSpawnStation();
         _countResources = CountResources;
     } 
 
@@ -72,7 +72,6 @@ public class StationWallet : MonoBehaviour
         {
             EnoughResourcesForUnit?.Invoke();
         }
-            
     }
     
     private void CanSpawnStation()

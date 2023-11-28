@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Resource : MonoBehaviour
 {
-    public void Destroy() => 
-        Destroy(gameObject);
+    public int Units;
+        
+    public void Destroy()
+    {
+        gameObject.SetActive(false);
+    }
 }
