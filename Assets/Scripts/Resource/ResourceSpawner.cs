@@ -10,7 +10,7 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] private int _minDistance = 5;
     [SerializeField] private int _maxDistance = 48;
 
-    public event Action<Resource> SpawnedResource;
+    public event Action<Resource> Spawned = delegate { };
 
     private Station _station;
     private Coroutine _coroutineSpawnWithDelay;
@@ -45,7 +45,7 @@ public class ResourceSpawner : MonoBehaviour
         Resource resource = Instantiate(_resourcePrefab, GenerateSpawnPosition(), Quaternion.identity);
         resource.transform.parent = gameObject.transform;
         
-        SpawnedResource?.Invoke(resource);
+        Spawned(resource);
     }
 
     private Vector3 GenerateSpawnPosition()

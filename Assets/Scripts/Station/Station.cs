@@ -8,12 +8,14 @@ public class Station : MonoBehaviour
     
     private List<Unit> _units = new();
     private Queue<Unit> _freeUnits = new();
+    
     private StationUnitSpawner _stationUnitSpawner;
     private StationResourceScanner _stationResourceScanner;
     private StationWallet _stationWallet;
     private UnitBuilder _unitBuilder;
     private LevelFlager _levelFlager;
     private MeshRenderer _meshRenderer;
+    
     private Vector3 _buildStationPosition;
     private bool _haveWorkBuildStation;
     private int _inActive = 0;
@@ -34,23 +36,23 @@ public class Station : MonoBehaviour
 
     private void OnEnable()
     {
-        _stationWallet.EnoughResourcesForUnit += OnSpawUnit;
-        _stationWallet.EnoughResourcesForStation += TryBuildStation;
-        _stationUnitSpawner.SpawnedUnit += OnAddUnit;
-        _stationResourceScanner.HaveResourse += TryCollectResource;
+        _stationWallet.UnitSpawnIsAvailable += OnSpawUnit;
+        _stationWallet.StationSpawnIsAvailable += OnTrySpawnStation;
+        _stationUnitSpawner.Spawned += OnAdd;
+        _stationResourceScanner.HaveResourse += OnTryCollectResource;
     }
 
     private void OnDisable()
     {
-        _stationWallet.EnoughResourcesForUnit -= OnSpawUnit;
-        _stationWallet.EnoughResourcesForStation -= TryBuildStation;
-        _stationUnitSpawner.SpawnedUnit -= OnAddUnit;
-        _stationResourceScanner.HaveResourse -= TryCollectResource;
+        _stationWallet.UnitSpawnIsAvailable -= OnSpawUnit;
+        _stationWallet.StationSpawnIsAvailable -= OnTrySpawnStation;
+        _stationUnitSpawner.Spawned -= OnAdd;
+        _stationResourceScanner.HaveResourse -= OnTryCollectResource;
     }
 
-    public void OnAddUnit(Unit unit)
+    public void OnAdd(Unit unit)
     {
-        unit.UnitFree += OnAddFreeUnitInQueue;
+        unit.Free += OnAddFreeInQueue;
         _units.Add(unit);
 
         if (_freeUnits.Contains(unit) == false)
@@ -59,7 +61,7 @@ public class Station : MonoBehaviour
 
     public void RemoveUnit(Unit unit)
     {
-        unit.UnitFree -= OnAddFreeUnitInQueue;
+        unit.Free -= OnAddFreeInQueue;
         _units.Remove(unit);
     }
 
@@ -95,7 +97,7 @@ public class Station : MonoBehaviour
         }
     }
 
-    private void OnAddFreeUnitInQueue(Unit unit)
+    private void OnAddFreeInQueue(Unit unit)
     {
         if (_freeUnits.Contains(unit) == false)
             _freeUnits.Enqueue(unit);
@@ -103,7 +105,7 @@ public class Station : MonoBehaviour
         _stationWallet.CanSpawnUnit();
     }
 
-    private void TryBuildStation()
+    private void OnTrySpawnStation()
     {
         if (_haveWorkBuildStation && _freeUnits.Count > 0)
         {
@@ -124,7 +126,7 @@ public class Station : MonoBehaviour
         }
     }
 
-    private void TryCollectResource()
+    private void OnTryCollectResource()
     {
         while (_freeUnits.Count != 0)
         {

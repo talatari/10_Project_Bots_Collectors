@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitCollector: MonoBehaviour
 {
-    public event Action UnitResourceCollected;
+    public event Action UnitResourceCollected = delegate { };
     
     public bool HasResource { get; private set; }
     public Resource Resource { get; private set; }
@@ -20,7 +20,7 @@ public class UnitCollector: MonoBehaviour
                 Resource.transform.SetParent(transform);
 
                 HasResource = true;
-                UnitResourceCollected?.Invoke();
+                UnitResourceCollected();
             
                 if (Resource.TryGetComponent(out SphereCollider sphereCollider)) 
                     sphereCollider.enabled = false;

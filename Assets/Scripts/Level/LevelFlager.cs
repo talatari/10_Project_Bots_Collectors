@@ -5,12 +5,12 @@ public class LevelFlager : MonoBehaviour
 {
     [SerializeField] private Flag _flagPrefab;
 
+    private List<Station> _stations = new ();
     private LevelRayCaster _levelRayCaster;
     private Vector3 _spawnFlagPosition;
     private Flag _currentFlag;
     private Station _currentStation;
-    private List<Station> _stations = new ();
-    
+
     private void Awake() => 
         _levelRayCaster = FindObjectOfType<LevelRayCaster>();
 
