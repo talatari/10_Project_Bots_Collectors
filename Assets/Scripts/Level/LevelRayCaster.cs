@@ -6,8 +6,8 @@ public class LevelRayCaster : MonoBehaviour
     private LevelFlager _levelFlager;
     private Camera _camera;
 
-    public event Action<Vector3> HavePoint;
-    public event Action<Station> HaveStation; 
+    public event Action<Vector3> HavePoint = delegate {  };
+    public event Action<Station> HaveStation = delegate { }; 
     
     public Vector3 Point { get; private set; }
 
@@ -16,6 +16,8 @@ public class LevelRayCaster : MonoBehaviour
     
     private void Update()
     {
+        // TODO: плохое решение - нагуглить как от этой проверки уйти в сторону события клика мышки
+        // TODO: возможно контроль через корутину
         if (Input.GetMouseButtonDown(0))
             Interact();
     }
@@ -27,10 +29,10 @@ public class LevelRayCaster : MonoBehaviour
             Point = raycastHit.point;
 
             if (raycastHit.collider.gameObject.TryGetComponent(out Plane plane))
-                HavePoint?.Invoke(Point);
+                HavePoint(Point);
 
             if (raycastHit.collider.gameObject.TryGetComponent(out Station station))
-                HaveStation?.Invoke(station);
+                HaveStation(station);
         }
     }
 }

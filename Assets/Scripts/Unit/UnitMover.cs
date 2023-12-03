@@ -9,6 +9,8 @@ public class UnitMover : MonoBehaviour
 
     private void Update()
     {
+        // TODO: плохое решение - нагуглить как от этой проверки уйти в сторону события клика мышки
+        // TODO: возможно контроль через корутину
         if (_haveTarget)
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetPoint, _speedMove * Time.deltaTime);

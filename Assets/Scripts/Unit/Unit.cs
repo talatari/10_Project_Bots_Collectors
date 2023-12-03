@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     private UnitBuilder _unitBuilder;
     private Station _parentStation;
 
-    public event Action<Unit> UnitFree;
+    public event Action<Unit> Free = delegate { };
     
     public UnitCollector UnitCollector => _unitCollector;
     
@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
     }
 
     public void SetFree() => 
-        UnitFree?.Invoke(this);
+        Free(this);
 
     public void SetParentStation(Station station) => 
         _parentStation = station;
@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     private void OnReConnectStation(Station newStation, Unit unit)
     {
         _parentStation.RemoveUnit(unit);
-        newStation.OnAddUnit(unit);
+        newStation.OnAdd(unit);
         _parentStation = newStation;
     }
 }
