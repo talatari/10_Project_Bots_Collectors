@@ -11,8 +11,8 @@ public class StationWallet : MonoBehaviour
 
     public int CountResources { get; set; }
     
-    public event Action UnitSpawnIsAvailable = delegate { };
-    public event Action StationSpawnIsAvailable = delegate { };
+    public event Action UnitSpawnIsAvailable;
+    public event Action StationSpawnIsAvailable;
 
     private void Awake() => 
         _stationResourceCollector = GetComponent<StationResourceCollector>();
@@ -53,13 +53,13 @@ public class StationWallet : MonoBehaviour
     public void CanSpawnUnit()
     {
         if (HaveResourcesForCreateUnit())
-            UnitSpawnIsAvailable();
+            UnitSpawnIsAvailable?.Invoke();
     }
     
     public void CanSpawnStation()
     {
         if (HaveResourcesForCreateStation())
-            StationSpawnIsAvailable();
+            StationSpawnIsAvailable?.Invoke();
     }
     
     private bool HaveResourcesForCreateUnit() => 

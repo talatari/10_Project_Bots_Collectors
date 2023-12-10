@@ -7,7 +7,7 @@ public class StationResourceScanner : MonoBehaviour
     private Queue<Resource> _resources = new ();
     private ResourceSpawner _resourceSpawner;
     
-    public event Action HaveResourse = delegate { };
+    public event Action HaveResourse;
 
     private void Awake() => 
         _resourceSpawner = GetComponent<ResourceSpawner>();
@@ -33,6 +33,6 @@ public class StationResourceScanner : MonoBehaviour
     private void OnAddResource(Resource resource)
     {
         _resources.Enqueue(resource);
-        HaveResourse();
+        HaveResourse?.Invoke();
     }
 }

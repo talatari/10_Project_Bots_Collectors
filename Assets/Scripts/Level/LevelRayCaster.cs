@@ -6,8 +6,8 @@ public class LevelRayCaster : MonoBehaviour
     private LevelFlager _levelFlager;
     private Camera _camera;
 
-    public event Action<Vector3> HavePoint = delegate {  };
-    public event Action<Station> HaveStation = delegate { }; 
+    public event Action<Vector3> HavePoint;
+    public event Action<Station> HaveStation; 
     
     public Vector3 Point { get; private set; }
 
@@ -29,10 +29,10 @@ public class LevelRayCaster : MonoBehaviour
             Point = raycastHit.point;
 
             if (raycastHit.collider.gameObject.TryGetComponent(out Plane plane))
-                HavePoint(Point);
+                HavePoint?.Invoke(Point);
 
             if (raycastHit.collider.gameObject.TryGetComponent(out Station station))
-                HaveStation(station);
+                HaveStation?.Invoke(station);
         }
     }
 }
