@@ -7,7 +7,7 @@ public class StationUnitSpawner : MonoBehaviour
     
     private Station _station;
 
-    public event Action<Unit> Spawned = delegate { }; 
+    public event Action<Unit> Spawned; 
 
     public void SetParentStation(Station station) => 
         _station = station;
@@ -21,6 +21,6 @@ public class StationUnitSpawner : MonoBehaviour
         unit.transform.parent = gameObject.transform;
         unit.SetParentStation(_station);
         
-        Spawned(unit);
+        Spawned?.Invoke(unit);
     }
 }

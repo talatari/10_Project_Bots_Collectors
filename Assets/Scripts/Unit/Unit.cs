@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     private UnitBuilder _unitBuilder;
     private Station _parentStation;
 
-    public event Action<Unit> Free = delegate { };
+    public event Action<Unit> Free;
     
     public UnitCollector UnitCollector => _unitCollector;
     
@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
     }
 
     public void SetFree() => 
-        Free(this);
+        Free?.Invoke(this);
 
     public void SetParentStation(Station station) => 
         _parentStation = station;

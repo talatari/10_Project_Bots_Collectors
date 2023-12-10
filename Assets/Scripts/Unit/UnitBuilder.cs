@@ -10,7 +10,7 @@ public class UnitBuilder : MonoBehaviour
     private UnitMover _unitMover;
     private Coroutine _coroutineWaitUnitForBuild;
 
-    public event Action<Station, Unit> SpawnedStation = delegate { }; 
+    public event Action<Station, Unit> SpawnedStation; 
 
     private void Awake()
     {
@@ -38,6 +38,6 @@ public class UnitBuilder : MonoBehaviour
         Station newStation = Instantiate(_stationPrefab, buildPosition, Quaternion.identity);
         transform.parent = newStation.transform;
         
-        SpawnedStation(newStation, _unit);
+        SpawnedStation?.Invoke(newStation, _unit);
     }
 }
